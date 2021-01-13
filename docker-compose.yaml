@@ -1,0 +1,86 @@
+version: "3.3"
+
+services:
+
+  # Business Service Logic (BLS)
+  # bls:
+  #   container_name: bls
+  #   build:
+  #     context: .
+  #     dockerfile: ./bls/Dockerfile
+  #   restart: always
+  #   ports:
+  #     - 80:80
+  #   command: ["npm", "start", "--", "--db=postgresql"]
+  #   volumes:
+  #     - /usr/src/app
+  #     - /usr/src/app/node_modules
+  #   networks:
+  #     - webnet
+  #   environment:
+  #     - DAO_BASE_URL=dao
+
+  # Data Access Object (DAO)
+  # dao:
+  #   container_name: dao
+  #   build:
+  #     context: .
+  #     dockerfile: ./dao/Dockerfile
+  #   restart: always
+  #   ports:
+  #     - 81:81
+  #   command: ["npm", "start"]
+  #   volumes:
+  #     - /usr/src/app
+  #     - /usr/src/app/node_modules
+  #   networks:
+  #     - webnet
+  #   environment:
+  #     - BASE_URL=dao
+
+  # Pgadmin is the most popular and feature rich Open Source administration 
+  # and development platform for PostgreSQL
+  pgadmin:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: db@db.com
+      PGADMIN_DEFAULT_PASSWORD: password
+    volumes:
+       - pgadmin:/var/lib/pgadmin
+    ports:
+      - 5050:80
+    restart: unless-stopped
+
+  # PostgreSQL (postgres) the most advanced Open Source database in the world.
+  postgres:
+    container_name: postgres
+    build:
+      context: .
+      dockerfile: ./postgres/Dockerfile
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: journalism
+      PGDATA: /var/lib/postgresql/data
+    networks:
+      - webnet
+
+# Creating volume with local driver
+volumes:
+
+  postgres:
+    driver: local
+  
+  pgadmin:
+    driver: local
+
+# Creating network with driver "bridge"
+networks:
+  webnet:
+    driver: bridge

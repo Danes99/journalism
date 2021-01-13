@@ -1,0 +1,14 @@
+# Dependency directories
+node_modules/
+
+# Tests directories
+tests/
+
+# Documents
+README.md
+
+# Git
+.gitignore
+
+# misc
+.DS_Store

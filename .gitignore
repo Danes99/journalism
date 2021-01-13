@@ -1,0 +1,5 @@
+# Visual Studio Code workspace
+.vscode/
+
+# misc
+.DS_Store

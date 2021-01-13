@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bls
+spec:
+  selector:
+    app: bls
+  ports:
+    - port: 80
+      targetPort: 80
+  type: LoadBalancer
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bls
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bls
+  template:
+    metadata:
+      labels:
+        app: bls
+    spec:
+      containers:
+        - name: bls
+          image: rtdashboard_bsl
+          ports:
+            - containerPort: 80
+          env:
+            - name: DAO_BASE_URL
+              value: dao
+          imagePullPolicy: Always
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: bls-claim0
+  name: bls-claim0
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: bls-claim1
+  name: bls-claim1
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}

@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dao
+spec:
+  selector:
+    app: dao
+  ports:
+    - port: 81
+      targetPort: 81
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dao
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dao
+  template:
+    metadata:
+      labels:
+        app: dao
+    spec:
+      containers:
+        - name: dao
+          image: rtdashboard_dao
+          ports:
+            - containerPort: 80
+          env:
+            - name: BASE_URL
+              value: dao
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: dao-claim0
+  name: dao-claim0
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: dao-claim1
+  name: dao-claim1
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
