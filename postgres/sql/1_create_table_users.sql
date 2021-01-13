@@ -3,9 +3,10 @@ DROP TABLE IF EXISTS users;
 -- Create table users
 CREATE TABLE users(
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name VARCHAR(64),
+    name VARCHAR(64) NOT NULL,
+    email VARCHAR(64) NOT NULL UNIQUE,
 	password VARCHAR(150),
-    signup_date timestamp with time zone NOT NULL DEFAULT ( NOW() AT TIME ZONE 'UTC+2' )
+    created_at timestamp with time zone NOT NULL DEFAULT ( NOW() AT TIME ZONE 'UTC+2' )
 );
 
 GRANT ALL PRIVILEGES ON TABLE users TO postgres;

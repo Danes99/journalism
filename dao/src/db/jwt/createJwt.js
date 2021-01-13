@@ -1,6 +1,6 @@
-createUser = async (name, email, password) => {
+createJwt = async (user_id, token) => {
     try {
-        const queryString = `INSERT INTO users(name, email, password) VALUES ('${name}', '${email}', '${password}')`
+        const queryString = `INSERT INTO jwt(user_id, token) VALUES ('${user_id}', '${token}')`
         const result = await client.query(queryString)
         return { success: result.rowCount > 0, result: 'success' }
     }
@@ -10,4 +10,4 @@ createUser = async (name, email, password) => {
     }
 }
 
-module.exports = createUser
+module.exports = createJwt

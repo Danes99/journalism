@@ -1,6 +1,7 @@
-createArticle = async (title, content) => {
+createArticle = async (user_id, title, content) => {
     try {
-        const queryString = `INSERT INTO articles(title, content) VALUES ('${title}', '${content}')`
+        const queryString = `INSERT INTO articles(user_id, title, content) VALUES (
+            ${user_id}, '${title}', '${content}');`
         const result = await client.query(queryString)
         return { success: result.rowCount > 0, result: 'success' }
     }

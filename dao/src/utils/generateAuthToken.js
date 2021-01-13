@@ -1,13 +1,12 @@
 // Import downloaded modules
 const jwt = require('jsonwebtoken')
 
-generateAuthToken = async function (name) {
-    const token = jwt.sign(
-        { data: name.toString() },
-        process.env.JWT_SECRET
+generateAuthToken = async data => (
+    jwt.sign(
+        { data },
+        process.env.JWT_SECRET,
+        { expiresIn: '12h' }
     )
-
-    return token
-}
+)
 
 module.exports = generateAuthToken

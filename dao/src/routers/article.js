@@ -2,6 +2,7 @@
 const express = require('express')
 
 // Import middleware
+const auth = require('../middleware/auth')
 const isIdValid = require('../middleware/article/isIdValid')
 const isArticleValid = require('../middleware/article/isArticleValid')
 
@@ -16,6 +17,7 @@ const deleteArticle = require('../db/article/deleteArticle')
 const router = new express.Router()
 
 // Read article by ID
+// No need to be authenticated
 router.get(
     '/:id',
     isIdValid,
@@ -33,7 +35,8 @@ router.get(
     }
 )
 
-// Search article by string in "title" or "content" 
+// Search article by string in "title" or "content"
+// No need to be authenticated
 router.get(
     '/',
     async (req, res) => {
@@ -54,20 +57,23 @@ router.get(
 )
 
 // Create article
+// Need to be authenticated
 router.post(
     '/',
+    auth,
     isArticleValid,
     async (req, res) => {
         try {
 
             // Create article in database
             const result = await createArticle(
+                req.user.id,
                 req.body.title,
                 req.body.content
             )
 
             // SQL Query result
-            if (result.result === 'success') {
+            if (result.success) {
                 return res.sendStatus(201)
             } else {
                 return res.status(500).json(result)
@@ -81,8 +87,10 @@ router.post(
 )
 
 // Update article
+// Need to be authenticated
 router.patch(
     '/:id',
+    auth,
     isIdValid,
     async (req, res) => {
         try {
@@ -105,8 +113,10 @@ router.patch(
 )
 
 // Delete article
+// Need to be authenticated
 router.delete(
     '/:id',
+    auth,
     isIdValid,
     async (req, res) => {
         try {
