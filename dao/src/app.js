@@ -8,9 +8,11 @@ const routerArticle = require('./routers/article')
 
 // Import functions
 const start = require('./db/start')
+const scheduleDeleteOldJwt = require('./db/schedule/scheduleDeleteOldJwt')
 
 // Connected to database
 start()
+// scheduleDeleteOldJwt(6000)
 
 // Create Express.js app
 const app = express()

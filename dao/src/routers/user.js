@@ -1,12 +1,12 @@
 // Import downloaded modules
 const bcrypt = require('bcryptjs')
 const express = require('express')
-const jwt = require('jsonwebtoken')
 
 // Import middleware
 const auth = require('../middleware/auth')
 const isIdValid = require('../middleware/user/isIdValid')
 const isUserValid = require('../middleware/user/isUserValid')
+const isUserUpdateValid = require('../middleware/user/isUserUpdateValid')
 
 // Import functions
 const generateAuthToken = require('../utils/generateAuthToken')
@@ -50,19 +50,30 @@ router.post(
     isUserValid,
     async (req, res) => {
 
+        const url  = req.body.name.toLowerCase().replace(' ', '')
+
         // Create user in database
         const result = await createUser(
             req.body.name,
             req.body.email,
+            url,
             await bcrypt.hash(req.body.password, 12)
         )
 
-        console.log(result)
+        // // Return JSON Web Token (JWT)
+        // return res.status(201).json({ 
+        //     token: await generateAuthToken(req.body.email) 
+        // })
 
-        // Return JSON Web Token (JWT)
-        return res.status(201).json({ 
-            token: await generateAuthToken(req.body.email) 
-        })
+        // JSON Web Token (JWT)
+        const token = await generateAuthToken(req.body.email)
+        const queryJwt = await createJwt(result.result.id, token)
+
+        if (queryJwt.success) {
+            return res.status(201).json({ token })
+        } else {
+            return res.status(500).send(queryJwt.result)
+        }
     }
 )
 
@@ -100,6 +111,7 @@ router.post(
 // User logout
 router.post(
     '/logout',
+    auth,
     async (req, res) => {
         res.send(200)
     }
@@ -108,6 +120,7 @@ router.post(
 // User logout
 router.post(
     '/logout/all',
+    auth,
     async (req, res) => {
         res.send(200)
     }
@@ -116,16 +129,37 @@ router.post(
 // User update
 router.patch(
     '/',
+    auth,
+    isUserUpdateValid,
     async (req, res) => {
-        res.send(200)
+
+        const result = updateUser(
+            req.user_id,
+            req.body.name,
+            req.body.email,
+            req.body.password
+        )
+
+        if (result.success) {
+            return res.sendStatus(200)
+        } else {
+            return res.status(500).send(result.result)
+        }
     }
 )
 
 // User delete
 router.delete(
     '/',
+    auth,
     async (req, res) => {
-        res.send(200)
+        const result = await deleteUser(req.user_id)
+
+        if (result.success) {
+            return res.sendStatus(200)
+        } else {
+            return res.status(500).send(result.result)
+        }
     }
 )
 

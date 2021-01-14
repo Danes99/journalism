@@ -1,4 +1,8 @@
+// Import downloaded module
 const { Client } = require('pg')
+
+// Import schedules
+const scheduleDeleteOldJwt = require('./schedule/scheduleDeleteOldJwt')
 
 const startConnection = async () => {
 
@@ -24,8 +28,12 @@ const startConnection = async () => {
 }
 
 const start = async () => {
+    // Start db connection
     const result = await startConnection()
     global.client = result.client
+
+    // Start schedules
+    scheduleDeleteOldJwt()
 }
 
 module.exports = start

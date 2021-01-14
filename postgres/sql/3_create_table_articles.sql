@@ -8,10 +8,7 @@ CREATE TABLE articles (
     content VARCHAR(30000) NOT NULL,
     isCompleted boolean NOT NULL DEFAULT false,
     updated_at timestamp with time zone NOT NULL DEFAULT ( NOW() AT TIME ZONE 'UTC+2' ),
-    created_at timestamp with time zone NOT NULL DEFAULT ( NOW() AT TIME ZONE 'UTC+2' ),
-    CONSTRAINT fk_user
-        FOREIGN KEY(user_id)
-	    REFERENCES users(id)
+    created_at timestamp with time zone NOT NULL DEFAULT ( NOW() AT TIME ZONE 'UTC+2' )
 );
 
 GRANT ALL PRIVILEGES ON TABLE articles TO postgres;

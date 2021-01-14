@@ -67,7 +67,7 @@ router.post(
 
             // Create article in database
             const result = await createArticle(
-                req.user.id,
+                req.user_id,
                 req.body.title,
                 req.body.content
             )
@@ -120,10 +120,19 @@ router.delete(
     isIdValid,
     async (req, res) => {
         try {
-
             // SQL Query result
-            const result = await deleteArticle(id)
-            res.status(result.success ? 200 : 500).json(result.result)
+            const result = await deleteArticle(req.params.id)
+            console.log(result)
+
+            if (result.success) {
+                return res.sendStatus(200)
+            } else {
+                if (result.result === 0) {
+                    res.sendStatus(404)
+                } else {
+                    return res.status(500).json(result.result)
+                }
+            }
 
         } catch (error) {
             console.log(error)

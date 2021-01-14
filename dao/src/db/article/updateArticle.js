@@ -6,7 +6,7 @@ updateArticle = async (id, title, content) => {
             WHERE id=${id}`
 
         const result = await client.query(queryString)
-        return { success: true }
+        return { success: result.rowCount === 1 }
     }
     catch (error) {
         console.log(error)
