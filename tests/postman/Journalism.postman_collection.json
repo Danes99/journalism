@@ -146,7 +146,7 @@
 					"name": "User",
 					"item": [
 						{
-							"name": "User login",
+							"name": "User Login",
 							"event": [
 								{
 									"listen": "test",
@@ -193,7 +193,7 @@
 							"response": []
 						},
 						{
-							"name": "User create",
+							"name": "User Create",
 							"event": [
 								{
 									"listen": "test",
@@ -219,13 +219,57 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \"Clement Stauner\",\n    \"email\": \"clementtt.stauner@gmail.com\",\n    \"password\": \"password\"\n}",
+									"raw": "{\n    \"name\": \"Clement Stauner\",\n    \"email\": \"clement.stauner@gmail.com\",\n    \"password\": \"Password0-\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
 										}
 									}
 								},
+								"url": {
+									"raw": "{{url}}/user",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"clement.stauner2@gmail.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/user/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"user",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
 								"url": {
 									"raw": "{{url}}/user",
 									"host": [
