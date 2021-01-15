@@ -21,22 +21,29 @@ services:
   #     - DAO_BASE_URL=dao
 
   # Data Access Object (DAO)
-  # dao:
-  #   container_name: dao
-  #   build:
-  #     context: .
-  #     dockerfile: ./dao/Dockerfile
-  #   restart: always
-  #   ports:
-  #     - 81:81
-  #   command: ["npm", "start"]
-  #   volumes:
-  #     - /usr/src/app
-  #     - /usr/src/app/node_modules
-  #   networks:
-  #     - webnet
-  #   environment:
-  #     - BASE_URL=dao
+  dao:
+    container_name: dao
+    build:
+      context: .
+      dockerfile: ./dao/Dockerfile
+    restart: always
+    ports:
+      - 81:81
+    command: ["npm", "start"]
+    volumes:
+      - /usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - webnet
+    environment:
+      PORT: 81
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: password
+      DB_NAME: journalism
+      JWT_SECRET: notsafepassword
+      SCHEDULE_DELETE_OLD_JWT: 60000
 
   # Pgadmin is the most popular and feature rich Open Source administration 
   # and development platform for PostgreSQL

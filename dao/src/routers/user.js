@@ -4,7 +4,6 @@ const express = require('express')
 
 // Import middleware
 const auth = require('../middleware/auth')
-const isIdValid = require('../middleware/user/isIdValid')
 const isUserValid = require('../middleware/user/isUserValid')
 const isUserUpdateValid = require('../middleware/user/isUserUpdateValid')
 
@@ -13,8 +12,8 @@ const generateAuthToken = require('../utils/generateAuthToken')
 
 // Import database functions (CRUD) : user
 const createUser = require('../db/user/createUser')
-const readUser = require('../db/user/readUser')
 const readUserFromEmail = require('../db/user/readUserFromEmail')
+const readUserFromUrl = require('../db/user/readUserFromUrl')
 const updateUser = require('../db/user/updateUser')
 const deleteUser = require('../db/user/deleteUser')
 
@@ -26,23 +25,25 @@ const router = new express.Router()
 
 // User read
 router.get(
-    '/:id',
-    isIdValid,
+    '/:url',
     async (req, res) => {
-        const result = readUser(req.params.id)
-        if (!result) return res.sendStatus(404)
-        return res.json(result)
+        const result = await readUserFromUrl(req.params.url)
+
+        if (!result.success) return res.sendStatus(500)
+        if (!result.result) return res.sendStatus(404)
+
+        return res.json(result.result)
     }
 )
 
-// User read
-router.get(
-    '/:id/avatar',
-    isIdValid,
-    async (req, res) => {
-        res.sendStatus(200)
-    }
-)
+// User read avatar
+// router.get(
+//     '/:id/avatar',
+//     isIdValid,
+//     async (req, res) => {
+//         res.sendStatus(200)
+//     }
+// )
 
 // User create
 router.post(
@@ -50,7 +51,7 @@ router.post(
     isUserValid,
     async (req, res) => {
 
-        const url  = req.body.name.toLowerCase().replace(' ', '')
+        const url  = req.body.name.trim().toLowerCase().replace(' ', '-')
 
         // Create user in database
         const result = await createUser(

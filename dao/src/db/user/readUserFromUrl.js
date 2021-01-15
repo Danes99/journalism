@@ -1,6 +1,6 @@
-readUserFromEmail = async email => {
+readUserFromUrl = async url => {
     try {
-        const queryString = `SELECT * FROM users WHERE email='${email}'`
+        const queryString = `SELECT name, url FROM users WHERE url='${url}'`
         const result = await client.query(queryString)
         return { success: true, result: result.rows[0] }
     }
@@ -10,4 +10,4 @@ readUserFromEmail = async email => {
     }
 }
 
-module.exports = readUserFromEmail
+module.exports = readUserFromUrl
