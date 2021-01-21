@@ -1,0 +1,53 @@
+# This is a docker-compose file for starting
+# only the database Postgres and PgAdmin4
+
+# docker-compose -f ./postgres.yaml up
+
+version: "3.3"
+
+services:
+
+  # Pgadmin is the most popular and feature rich Open Source administration 
+  # and development platform for PostgreSQL
+  pgadmin:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: db@db.com
+      PGADMIN_DEFAULT_PASSWORD: password
+    volumes:
+       - pgadmin:/root/.pgadmin
+    ports:
+      - "5050:80"
+    restart: unless-stopped
+
+  # PostgreSQL (postgres) the most advanced Open Source database in the world.
+  postgres:
+    container_name: postgres
+    build:
+      context: .
+      dockerfile: ./postgres/Dockerfile
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: kawaii
+      PGDATA: /var/lib/postgresql/data
+    networks:
+      - webnet
+
+# Creating volume "rtdashboard_db-data" with local driver
+volumes:
+  db-data:
+    driver: local
+  
+  pgadmin:
+
+# Creating network "rtdashboard_webnet" with driver "bridge"
+networks:
+  webnet:
+    driver: bridge
