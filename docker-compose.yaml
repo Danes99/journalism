@@ -3,6 +3,7 @@ version: "3.3"
 services:
 
   # Business Service Logic (BLS)
+  # Node.js
   # bls:
   #   container_name: bls
   #   build:
@@ -21,6 +22,7 @@ services:
   #     - DAO_BASE_URL=dao
 
   # Data Access Object (DAO)
+  # Node.js
   dao:
     container_name: dao
     build:
