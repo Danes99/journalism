@@ -2,7 +2,7 @@
 
 PostgreSQL also known as Postgres, is a free and open-source relational database management system (RDBMS) emphasizing extensibility and SQL compliance.
 
-The DAO access the database to store machine events and layout configuration.
+The DAO access the database to create, read, update and delete data (CRUD).
 
 <img
     src="../docs/img/architecture.jpg"
