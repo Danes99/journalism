@@ -32,9 +32,6 @@ services:
     ports:
       - 81:81
     command: ["npm", "start"]
-    volumes:
-      - /usr/src/app
-      - /usr/src/app/node_modules
     networks:
       - webnet
     environment:
