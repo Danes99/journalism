@@ -13,9 +13,6 @@ services:
   #   ports:
   #     - 80:80
   #   command: ["npm", "start", "--", "--db=postgresql"]
-  #   volumes:
-  #     - /usr/src/app
-  #     - /usr/src/app/node_modules
   #   networks:
   #     - webnet
   #   environment:
