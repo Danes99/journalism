@@ -9,7 +9,9 @@ spec:
     - port: 81
       targetPort: 81
   type: LoadBalancer
+
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -26,40 +28,33 @@ spec:
     spec:
       containers:
         - name: dao
-          image: rtdashboard_dao
+          image: journalism_dao
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+            requests:
+              memory: 256Mi
+              cpu: "0.2"
           ports:
-            - containerPort: 80
+            - containerPort: 81
           env:
-            - name: BASE_URL
-              value: dao
+            - name: PORT
+              value: "81"
+            - name: DB_HOST
+              value: postgres
+            - name: DB_PORT 
+              value: "5432"
+            - name: DB_USER
+              value: postgres
+            - name: DB_PASSWORD
+              value: password
+            - name: DB_NAME
+              value: journalism
+            - name: JWT_SECRET
+              value: notsafepassword
+            - name: SCHEDULE_DELETE_OLD_JWT
+              value: "60000"
           imagePullPolicy: Always
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  creationTimestamp: null
-  labels:
-    io.kompose.service: dao-claim0
-  name: dao-claim0
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 100Mi
-status: {}
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  creationTimestamp: null
-  labels:
-    io.kompose.service: dao-claim1
-  name: dao-claim1
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 100Mi
-status: {}
+
+# https://learnk8s.io/deploying-nodejs-kubernetes

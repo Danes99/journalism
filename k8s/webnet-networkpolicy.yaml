@@ -1,7 +1,6 @@
 apiVersion: extensions/v1beta1
 kind: NetworkPolicy
 metadata:
-  creationTimestamp: null
   name: webnet
 spec:
   ingress:
