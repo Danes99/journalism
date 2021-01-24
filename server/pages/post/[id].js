@@ -1,18 +1,16 @@
 import Head from 'next/head'
 
-export default function Post({ postData }) {
+export default function Post() {
     return (
-        <Layout>
+        <div>
+
             <Head>
-                <title>{postData.title}</title>
+                <title>Title</title>
             </Head>
             <article>
-                <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-                <div className={utilStyles.lightText}>
-                    <Date dateString={postData.date} />
-                </div>
-                <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+                <h1>Test</h1>
+                
             </article>
-        </Layout>
+        </div>
     )
 }

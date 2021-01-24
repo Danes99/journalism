@@ -14,3 +14,8 @@ a {
 * {
   box-sizing: border-box;
 }
+
+/* ./styles/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
