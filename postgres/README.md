@@ -4,8 +4,19 @@ PostgreSQL also known as Postgres, is a free and open-source relational database
 
 The DAO access the database to create, read, update and delete data (CRUD).
 
+## Table of contents
+
+1. [Project architecture](#Project-architecture)
+2. [Installation](#Installation)
+3. [Usage](#Usage)
+4. [Contributing](#Contributing)
+5. [Authors and acknowledgment](#Authors-and-acknowledgment)
+6. [License](#License)
+
+## Project architecture
+
 <img
-    src="../docs/img/architecture.jpg"
+    src="../docs/img/architecture2.png"
     alt="RT Dashboard Architecture"
 />
 
