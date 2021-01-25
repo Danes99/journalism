@@ -47,12 +47,15 @@ spec:
 
 ---
 
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
   template:
     metadata:
       labels:
@@ -68,7 +71,7 @@ spec:
             requests:
               memory: 256Mi
               cpu: "0.2"
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: Always
           ports:
             - containerPort: 5432
           env:

@@ -46,12 +46,15 @@ spec:
 
 ---
 
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pgadmin
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: pgadmin
   template:
     metadata:
       labels:
@@ -67,17 +70,17 @@ spec:
             requests:
               memory: 256Mi
               cpu: "0.2"
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 5050
+            - containerPort: 80
           env:
             - name: PGADMIN_DEFAULT_EMAIL
               value: db@db.com
             - name: PGADMIN_DEFAULT_PASSWORD
               value: password
-          envFrom:
-            - configMapRef:
-                name: pgadmin-config
+          # envFrom:
+          #   - configMapRef:
+          #       name: pgadmin-config
           volumeMounts:
             - mountPath: /var/lib/pgadmin
               name: pgadmin
