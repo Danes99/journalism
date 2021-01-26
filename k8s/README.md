@@ -128,4 +128,4 @@ Made by Clément STAUNER, IBM FabLab France, Global Markets, July 2021.
 
 ## License
 
-[MIT](https://en.wikipedia.org/wiki/MIT_License)
+[© Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)

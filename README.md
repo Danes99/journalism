@@ -61,4 +61,4 @@ Made by Clément Stauner & Mathis Truchet, 2020.
 
 ## License
 
-[© MIT Licence](https://www.duckduckgo.com)
+[© Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
