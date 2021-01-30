@@ -5,7 +5,7 @@ generateAuthToken = async data => (
     jwt.sign(
         { data },
         process.env.JWT_SECRET,
-        { expiresIn: '12h' }
+        { expiresIn: JWT_EXPIRES_IN }
     )
 )
 

@@ -1,21 +1,19 @@
 // Import downloaded module
 const { Client } = require('pg')
 
-// Import schedules
-const scheduleDeleteOldJwt = require('./schedule/scheduleDeleteOldJwt')
+clientData = {
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    database: process.env.DB_NAME,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+}
 
 const startConnection = async () => {
 
     try {
-        clientData = {
-            host: process.env.DB_HOST,
-            port: process.env.DB_PORT,
-            database: process.env.DB_NAME,
-            user: process.env.DB_USER,
-            password: process.env.DB_PASSWORD,
-        }
 
-        const client = new Client(clientData)
+        global.client = new Client(clientData)
         const result = await client.connect()
 
         console.log("Connected successfully to database PostgreSQL")
@@ -27,13 +25,4 @@ const startConnection = async () => {
     }
 }
 
-const start = async () => {
-    // Start db connection
-    const result = await startConnection()
-    global.client = result.client
-
-    // Start schedules
-    scheduleDeleteOldJwt()
-}
-
-module.exports = start
+module.exports = startConnection

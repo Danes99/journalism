@@ -2,15 +2,21 @@
 const jwt = require('jsonwebtoken')
 
 // Import database functions (CRUD) : user
-const readUserFromEmail = require('../db/user/readUserFromEmail')
 const readJwtFromToken = require('../db/jwt/readJwtFromToken')
+const deleteJwtExpired = require('../db/jwt/deleteJwtExpired')
 
 const auth = async (req, res, next) => {
     try {
+        
+        // Delete expired JSON Web Tokens (JWT)
+        deleteJwtExpired()
+
+        // Verify validity of token
         const token = req.header('Authorization').replace('Bearer ', '')
         const decode = jwt.verify(token, process.env.JWT_SECRET)
-        const resultJwt = await readJwtFromToken(token)
 
+        // Does token exist in database?
+        const resultJwt = await readJwtFromToken(token)
         if (!resultJwt.success) throw new Error('No user')
 
         req.token = token

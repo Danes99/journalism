@@ -10,7 +10,6 @@ createUser = async (name, email, url, password) => {
         return { success: resultFromSelect.rows.length > 0, result: resultFromSelect.rows[0] }
     }
     catch (error) {
-        console.log(error)
         return { success: false, result: error }
     }
 }

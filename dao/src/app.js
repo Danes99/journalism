@@ -7,12 +7,14 @@ const routerUser = require('./routers/user')
 const routerArticle = require('./routers/article')
 
 // Import functions
-const start = require('./db/start')
-const scheduleDeleteOldJwt = require('./db/schedule/scheduleDeleteOldJwt')
+const startDBConnection = require('./db/start')
+
+// Global constants
+global.JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '12h'
+global.TIMEZONE = process.env.TIMEZONE || 'UTC+1'
 
 // Connected to database
-start()
-// scheduleDeleteOldJwt(6000)
+startDBConnection()
 
 // Create Express.js app
 const app = express()
@@ -21,6 +23,7 @@ const app = express()
 app.set('AppName', 'Data Access Object (DAO)')
 
 // Define express config
+// Parse HTTP Request body
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 

@@ -12,6 +12,7 @@ const generateAuthToken = require('../utils/generateAuthToken')
 
 // Import database functions (CRUD) : user
 const createUser = require('../db/user/createUser')
+const readUserFromEmailOrName = require('../db/user/readUserFromEmailOrName')
 const readUserFromEmail = require('../db/user/readUserFromEmail')
 const readUserFromUrl = require('../db/user/readUserFromUrl')
 const updateUser = require('../db/user/updateUser')
@@ -50,30 +51,30 @@ router.post(
     '/',
     isUserValid,
     async (req, res) => {
+        try {
+            
+            const url = req.body.name.trim().toLowerCase().replace(' ', '-')
 
-        const url  = req.body.name.trim().toLowerCase().replace(' ', '-')
+            // Create user in database
+            const result = await createUser(
+                req.body.name,
+                req.body.email,
+                url,
+                await bcrypt.hash(req.body.password, 12)
+            )
 
-        // Create user in database
-        const result = await createUser(
-            req.body.name,
-            req.body.email,
-            url,
-            await bcrypt.hash(req.body.password, 12)
-        )
+            // JSON Web Token (JWT)
+            const token = await generateAuthToken(req.body.email)
+            const queryJwt = await createJwt(result.result.id, token)
 
-        // // Return JSON Web Token (JWT)
-        // return res.status(201).json({ 
-        //     token: await generateAuthToken(req.body.email) 
-        // })
-
-        // JSON Web Token (JWT)
-        const token = await generateAuthToken(req.body.email)
-        const queryJwt = await createJwt(result.result.id, token)
-
-        if (queryJwt.success) {
-            return res.status(201).json({ token })
-        } else {
-            return res.status(500).send(queryJwt.result)
+            if (queryJwt.success) {
+                return res.status(201).json({ token })
+            } else {
+                return res.status(500).send(queryJwt.result)
+            }
+            
+        } catch (error) {
+            res.status(500).send(error)
         }
     }
 )

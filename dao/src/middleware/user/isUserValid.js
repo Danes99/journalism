@@ -1,8 +1,11 @@
 // Import downloaded modules
 const validator = require('validator')
 
+// Import database functions (CRUD) : user
+const readUserFromEmailOrName = require('../../db/user/readUserFromEmailOrName')
+
+// Constants
 const MINI_LENGTH_NAME = 2
-// const MINI_LENGTH_PASSWORD = 2
 
 const isUserValid = async (req, res, next) => {
     try {
@@ -17,6 +20,24 @@ const isUserValid = async (req, res, next) => {
         if (!req.body.email) return res.status(400).json({ error: "No email" })
         if (!validator.isEmail(req.body.email)) {
             return res.status(400).json({ error: `${req.body.email} is not an email` })
+        }
+
+        // Is Email or name already used?
+        const resultTest = await readUserFromEmailOrName(
+            req.body.name,
+            req.body.email
+        )
+
+        if (resultTest.success) {
+            if (resultTest.result) {
+                if (resultTest.result.name === req.body.name) {
+                    return res.status(400).send(`'${req.body.name}' already used`)
+                } else {
+                    return res.status(400).send(`'${req.body.email}' already used`)
+                }
+            }
+        } else {
+            return res.status(500).send(resultTest.result)
         }
 
         // Test password
