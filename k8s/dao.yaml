@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: dao
-          image: journalism_dao
+          image: localhost:5000/journalism_dao
           resources:
             limits:
               memory: 512Mi

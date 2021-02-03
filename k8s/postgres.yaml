@@ -63,7 +63,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: journalism_postgres
+          image: localhost:5000/journalism_postgres
           resources:
             limits:
               memory: 512Mi
