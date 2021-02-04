@@ -7,8 +7,8 @@ services:
   # bls:
   #   container_name: bls
   #   build:
-  #     context: .
-  #     dockerfile: ./bls/Dockerfile
+  #     context: ./bls
+  #     dockerfile: ./Dockerfile
   #   restart: always
   #   ports:
   #     - 80:80
@@ -23,8 +23,8 @@ services:
   dao:
     container_name: dao
     build:
-      context: .
-      dockerfile: ./dao/Dockerfile
+      context: ./dao
+      dockerfile: ./Dockerfile
     restart: always
     ports:
       - 81:81
@@ -59,8 +59,8 @@ services:
   postgres:
     container_name: postgres
     build:
-      context: .
-      dockerfile: ./postgres/Dockerfile
+      context: ./postgres
+      dockerfile: ./Dockerfile
     restart: always
     ports:
       - 5432:5432
@@ -74,7 +74,7 @@ services:
     networks:
       - webnet
 
-# Creating volume with local driver
+# Creating volumes with local driver
 volumes:
 
   # Volume for Postgres
@@ -85,7 +85,7 @@ volumes:
   pgadmin:
     driver: local
 
-# Creating network with driver "bridge"
+# Creating network "webnet" with driver "bridge"
 networks:
   webnet:
     driver: bridge

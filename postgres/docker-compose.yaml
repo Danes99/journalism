@@ -1,7 +1,8 @@
 # This is a docker-compose file for starting
 # only the database Postgres and PgAdmin4
 
-# docker-compose -f ./postgres.yaml up
+# Launch only the database :
+# docker-compose -f ./postgres/docker-compose.yaml up
 
 version: "3.3"
 
@@ -26,7 +27,7 @@ services:
     container_name: postgres
     build:
       context: .
-      dockerfile: ./postgres/Dockerfile
+      dockerfile: ./Dockerfile
     restart: always
     ports:
       - 5432:5432
@@ -40,7 +41,7 @@ services:
     networks:
       - webnet
 
-# Creating volume with local driver
+# Creating volumes with local driver
 volumes:
 
   # Volume for Postgres
@@ -51,7 +52,7 @@ volumes:
   pgadmin:
     driver: local
 
-# Creating network with driver "bridge"
+# Creating network "webnet" with driver "bridge"
 networks:
   webnet:
     driver: bridge
