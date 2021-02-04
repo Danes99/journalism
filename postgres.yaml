@@ -2,7 +2,7 @@
 # only the database Postgres and PgAdmin4
 
 # Launch only the database :
-# docker-compose -f ./postgres/docker-compose.yaml up
+# docker-compose -f postgres.yaml up
 
 version: "3.3"
 
