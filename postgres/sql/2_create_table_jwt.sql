@@ -5,7 +5,7 @@ CREATE TABLE jwt(
     id SERIAL,
     user_id INT NOT NULL,
     token VARCHAR(200) NOT NULL,
-    created_at timestamp with time zone NOT NULL DEFAULT ( NOW() AT TIME ZONE 'UTC+1' ),
+    created_at timestamp with time zone NOT NULL DEFAULT ( NOW() AT TIME ZONE 'UTC-1' ),
     expired_at timestamp with time zone NOT NULL,
     CONSTRAINT fk_user
         FOREIGN KEY(user_id) 
@@ -22,7 +22,7 @@ CREATE OR REPLACE FUNCTION trg_fn_jwt_delete_old()
 RETURNS TRIGGER AS $$
 BEGIN
     DELETE from jwt 
-        WHERE created_at < NOW() AT TIME ZONE 'UTC+1' - INTERVAL '12 hours';
+        WHERE created_at < NOW() AT TIME ZONE 'UTC-1' - INTERVAL '12 hours';
     RETURN null;
 END;
 $$ language 'plpgsql';

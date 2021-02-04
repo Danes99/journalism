@@ -7,8 +7,8 @@ CREATE TABLE articles (
     title VARCHAR(300) NOT NULL,
     content VARCHAR(30000) NOT NULL,
     isCompleted boolean NOT NULL DEFAULT false,
-    updated_at timestamp with time zone NOT NULL DEFAULT ( NOW() AT TIME ZONE 'UTC+1' ),
-    created_at timestamp with time zone NOT NULL DEFAULT ( NOW() AT TIME ZONE 'UTC+1' )
+    updated_at timestamp with time zone NOT NULL DEFAULT ( NOW() AT TIME ZONE 'UTC-1' ),
+    created_at timestamp with time zone NOT NULL DEFAULT ( NOW() AT TIME ZONE 'UTC-1' )
 );
 
 GRANT ALL PRIVILEGES ON TABLE articles TO postgres;

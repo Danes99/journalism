@@ -11,7 +11,7 @@ const startDBConnection = require('./db/start')
 
 // Global constants
 global.JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '12h'
-global.TIMEZONE = process.env.TIMEZONE || 'UTC+1'
+global.TIMEZONE = process.env.TIMEZONE || 'UTC-1'
 
 // Connected to database
 startDBConnection()
