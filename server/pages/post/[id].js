@@ -1,6 +1,10 @@
 import Head from 'next/head'
 
 import Date from '../../components/date'
+import Layout from '../../components/layout'
+
+// Import CSS
+import utilStyles from '../../styles/utils.module.css'
 
 import DAO_BASE_URL from '../../config/DAO_BASE_URL'
 
@@ -16,7 +20,8 @@ export async function getServerSideProps({ params }) {
 export default function Post({ article }) {
 
     return (
-        <div>
+
+        <Layout>
 
             <Head>
                 <title>{article.title}</title>
@@ -24,17 +29,15 @@ export default function Post({ article }) {
 
             <article>
 
-                <h2>
+                <h1 className={utilStyles.headingXl}>{article.title}</h1>
+                <div className={utilStyles.lightText}>
                     Updated <Date dateString={article.updated_at} />
-                </h2>
+                </div>
 
+                <h2>Content</h2>
+                <div dangerouslySetInnerHTML={{ __html: article.content }} />
 
-                <h1>Content</h1>
-                <p>
-                    {article.content}
-                </p>
-                
             </article>
-        </div>
+        </Layout>
     )
 }
