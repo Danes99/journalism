@@ -15,6 +15,7 @@ const createUser = require('../db/user/createUser')
 const readUserFromEmailOrName = require('../db/user/readUserFromEmailOrName')
 const readUserFromEmail = require('../db/user/readUserFromEmail')
 const readUserFromUrl = require('../db/user/readUserFromUrl')
+const readUser = require('../db/user/readUser')
 const updateUser = require('../db/user/updateUser')
 const deleteUser = require('../db/user/deleteUser')
 
@@ -23,6 +24,19 @@ const createJwt = require('../db/jwt/createJwt')
 
 // Create Express.js router
 const router = new express.Router()
+
+// User read
+router.get(
+    '/id/:id',
+    async (req, res) => {
+        const result = await readUser(req.params.id)
+
+        if (!result.success) return res.sendStatus(500)
+        if (!result.result) return res.sendStatus(404)
+
+        return res.json(result.result)
+    }
+)
 
 // User read
 router.get(

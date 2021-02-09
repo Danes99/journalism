@@ -6,7 +6,7 @@
     margin: 1rem 0;
   }
   
-  .headingXl {
+.headingXl {
     font-size: 2rem;
     line-height: 1.3;
     font-weight: 800;
@@ -14,13 +14,13 @@
     margin: 1rem 0;
   }
   
-  .headingLg {
+.headingLg {
     font-size: 1.5rem;
     line-height: 1.4;
     margin: 1rem 0;
   }
   
-  .headingMd {
+.headingMd {
     font-size: 1.2rem;
     line-height: 1.5;
   }

@@ -1,7 +1,11 @@
 .container {
-  max-width: 36rem;
+  max-width: 48rem;
   padding: 0 1rem;
-  margin: 3rem auto 6rem;
+  margin: 0rem auto;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .header {
@@ -22,4 +26,14 @@
 
 .backToHome {
   margin: 3rem 0 0;
+}
+
+.Page {
+  display: flex;
+  flex-direction: column;
+  min-height: 36vh;
+}
+
+.mainContent {
+  flex-grow: 1;
 }

@@ -13,35 +13,48 @@ const name = 'Journalism'
 export const siteTitle = name
 
 // Layout
-export default function Layout({ children, home }) {
+export default function Layout({ children }) {
     return (
         <div className={styles.container}>
 
             <Head>
 
-                <link rel="icon" href="/svg/logo.svg" />
+                <link rel="icon" href="/favicon.ico" />
 
                 <meta
                     name="description"
-                    content="Journalism"
+                    content="Journalism Article"
+                />
+
+                <meta
+                    property="og:image"
+                    content={`https://og-image.now.sh/${encodeURI(
+                        siteTitle
+                    )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
                 />
 
                 <meta name="og:title" content={siteTitle} />
+                <meta name="twitter:card" content="summary_large_image" />
 
-                <title>{home ? name : 'Home'}</title>
+                <title>Article</title>
             </Head>
 
 
             <div className={styles.mainContent}>
-                
-                {/*Header*/}
                 <header className={styles.header}>
+
                     <Link href="/">
-                        <img src='/svg/logo.svg' alt='next' />
+                        <a>Home</a>
                     </Link>
+
+                    <h2 className={utilStyles.headingLg}>
+                        <Link href="/">
+                            <a className={utilStyles.colorInherit}>{name}</a>
+                        </Link>
+                    </h2>
+
                 </header>
 
-                {/* Main content */}
                 <main>
                     {children}
                 </main>

@@ -8,16 +8,21 @@ import utilStyles from '../../styles/utils.module.css'
 
 import DAO_BASE_URL from '../../config/DAO_BASE_URL'
 
+// Get Article from DAO (Data Access Object)
 export async function getServerSideProps({ params }) {
 
     // Get the article from the DAO
     const req = await fetch(DAO_BASE_URL + 'article/' + params.id)
     const article = await req.json()
 
-    return { props: { article } }
+    const reqUser = await fetch(DAO_BASE_URL + 'user/id/' + article.user_id)
+    const user = await reqUser.json()
+
+    return { props: { article, user } }
 }
 
-export default function Post({ article }) {
+// Render Article
+export default function Post({ article, user }) {
 
     return (
 
@@ -30,12 +35,19 @@ export default function Post({ article }) {
             <article>
 
                 <h1 className={utilStyles.headingXl}>{article.title}</h1>
+                by <h2 className={utilStyles.headingMd}>{user.name}</h2>
+
                 <div className={utilStyles.lightText}>
                     Updated <Date dateString={article.updated_at} />
                 </div>
 
                 <h2>Content</h2>
-                <div dangerouslySetInnerHTML={{ __html: article.content }} />
+
+                {/* <div dangerouslySetInnerHTML={{ __html: article.content }} /> */}
+                {/* Article content */}
+                <div>
+                    {article.content}
+                </div>
 
             </article>
         </Layout>
