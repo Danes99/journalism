@@ -39,7 +39,7 @@ docker-compose down
 docker-compose build
 ```
 
-Note: "docker-compose up" automatically builds/rebuilds the project
+Note: "docker-compose up --build" automatically builds/rebuilds the project
 
 ## Usage
 
