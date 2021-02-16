@@ -13,10 +13,19 @@ if test -f "$FILE"; then
     echo "$FILE exists."
     # The npm ci command, helps provide faster, 
     # reliable, reproducible builds for production environments.
-    npm ci
+    # npm ci
 else
   echo "$FILE does not exist."
   npm i
+fi
+
+# Does node_modules exist ?
+FOLDER=./node_modules
+if test -r "$FOLDER"; then
+    echo "$FOLDER exists."
+else
+  echo "$FILE does not exist."
+  npm ci
 fi
 
 # Build compiled React.js Application
