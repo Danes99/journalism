@@ -1,6 +1,7 @@
 // Import downloaded module
 const { Client } = require('pg')
 
+// Client data
 clientData = {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
