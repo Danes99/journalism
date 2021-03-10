@@ -16,7 +16,7 @@ The DAO access the database to create, read, update and delete data (CRUD).
 ## Project architecture
 
 <img
-    src="../docs/img/architecture2.png"
+    src="../docs/img/architecture.jpg"
     alt="RT Dashboard Architecture"
 />
 
