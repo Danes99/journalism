@@ -12,8 +12,10 @@ CREATE TABLE users(
     updated_at timestamp with time zone NOT NULL DEFAULT ( NOW() AT TIME ZONE 'UTC-1' )
 );
 
+-- 'UTC-1' is Paris (France) timezone
+
 -- Create a Trigger function
--- to update "updated_at" when UPDATE the table "users"
+-- to update "updated_at" when UPDATE the SQL table
 -- https://www.dbrnd.com/2016/03/postgresql-update-the-timestamp-column-with-the-use-of-trigger/
 CREATE OR REPLACE FUNCTION trg_fn_users_updated_at()
 RETURNS TRIGGER AS $$
@@ -27,7 +29,5 @@ $$ language 'plpgsql';
 CREATE TRIGGER trg_update_users BEFORE UPDATE
 ON users FOR EACH ROW EXECUTE PROCEDURE 
 trg_fn_users_updated_at();
-
--- 'UTC-1' is Paris (France) timezone
 
 GRANT ALL PRIVILEGES ON TABLE users TO postgres;

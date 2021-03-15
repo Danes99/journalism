@@ -11,8 +11,10 @@ CREATE TABLE articles (
     updated_at timestamp with time zone NOT NULL DEFAULT ( NOW() AT TIME ZONE 'UTC-1' )
 );
 
+-- 'UTC-1' is Paris (France) timezone
+
 -- Create a Trigger function
--- to update "updated_at" when UPDATE the table "articles"
+-- to update "updated_at" when UPDATE the SQL table
 -- https://www.dbrnd.com/2016/03/postgresql-update-the-timestamp-column-with-the-use-of-trigger/
 CREATE OR REPLACE FUNCTION trg_fn_articles_updated_at()
 RETURNS TRIGGER AS $$

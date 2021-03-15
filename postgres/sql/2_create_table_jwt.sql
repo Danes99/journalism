@@ -12,6 +12,8 @@ CREATE TABLE jwt(
 	    REFERENCES users(id)
 );
 
+-- 'UTC-1' is Paris (France) timezone
+
 GRANT ALL PRIVILEGES ON TABLE jwt TO postgres;
 
 -- Create a Trigger function
