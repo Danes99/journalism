@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS jwt;
 
 -- Create table jwt
 CREATE TABLE jwt(
-    id SERIAL,
+    id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     token VARCHAR(200) NOT NULL,
     created_at timestamp with time zone NOT NULL DEFAULT ( NOW() AT TIME ZONE 'UTC-1' ),
