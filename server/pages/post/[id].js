@@ -1,65 +1,73 @@
+// Import pre-installed modules
 import Head from 'next/head'
 import Link from 'next/link'
 
-import Date from '../../components/date'
+// Import custom components
+import DateFormat from '../../components/date'
 import Layout from '../../components/layout'
 
 // Import CSS
-import styles from './post.module.css'
+import styles from './styles.module.css'
 
-// Constants
-import DAO_BASE_URL from '../../config/DAO_BASE_URL'
+// Import Constants
+import { DAO_ENDPOINT_ARTICLE, DAO_ENDPOINT_USER } from '../../config/dao'
 
 // Articles
 const article404 = { title: 'Article does not exist', content: '404 not found' }
-const article500 = { title: 'Server error', content: '502 Bad Gateway'}
+const article500 = { title: 'Server error', content: '502 Bad Gateway' }
 
-// Users
-const userNotDefined = { name: 'User not defined', created_at: null }
-
-// Get Article from DAO (Data Access Object)
+// Get data from the API:
+// This function is executed before the rendering of the HTML page.
+// The return pass the data as parameters to the rendering function.
 export async function getServerSideProps({ params }) {
 
     // Get the article from the DAO
-    const req = await fetch(DAO_BASE_URL + 'article/' + params.id)
+    const req = await fetch(DAO_ENDPOINT_ARTICLE + params.id)
 
     // Test HTTP request result
     let article
     let doGetUser = false
 
+    // Test HTTP Request status code
     switch (req.status) {
-        
+
         // Is article OK?
         case 200:
             article = await req.json()
             doGetUser = true
             break;
-        
+
         // Does article exist?
         case 404:
             article = article404
             break;
-        
+
         // Is there server error?
         case 500:
             article = article500
             break;
+        
+        default:
+            article = article500
+            break;
     }
 
-    // // Get the user from the DAO
+    // Get the user from the DAO
     let user
     if (doGetUser) {
-        const reqUser = await fetch(DAO_BASE_URL + 'user/id/' + article.user_id)
-        user = reqUser.status == 200 ? await reqUser.json() : userNotDefined
+        const reqUser = await fetch(DAO_ENDPOINT_USER + 'id/' + article.user_id)
+        user = reqUser.status == 200 ? await reqUser.json() : null
     } else {
-        user = userNotD
+        user = null
     }
 
     // Return results
     return { props: { article, user } }
 }
 
-// Render Article
+// Render Web Page:
+// This function is executed after the function 'getServerSideProps'
+// The function parameters are the return of 'getServerSideProps'
 export default function Post({ article, user }) {
     return (
         <Layout>
@@ -75,17 +83,21 @@ export default function Post({ article, user }) {
                 <div className={styles.articleTitle}>{article.title}</div>
 
                 {/* Article Author */}
-                <div className={styles.articleAuthor}>
-                    by&nbsp;
-                    <Link href='/author/'>
-                        <a>{user.name}</a>
-                    </Link>
-                </div>
+                {user && (
+                    <div className={styles.articleAuthor}>
+                        by&nbsp;
+                        <Link href={`/author/${user.url}`}>
+                            <a>{user.name}</a>
+                        </Link>
+                    </div>
+                )}
 
                 {/* Article Updated At */}
-                <div className={styles.articleUpdatedAt}>
-                    Updated <Date dateString={article.updated_at} />
-                </div>
+                {article.updated_at && (
+                    <div className={styles.articleUpdatedAt}>
+                        Updated <DateFormat dateString={article.updated_at} />
+                    </div>
+                )}
 
                 {/* <h2>Content</h2> */}
 

@@ -12,7 +12,7 @@ const generateAuthToken = require('../utils/generateAuthToken')
 
 // Import database functions (CRUD) : user
 const createUser = require('../db/user/createUser')
-const readUserFromEmailOrName = require('../db/user/readUserFromEmailOrName')
+// const readUserFromEmailOrName = require('../db/user/readUserFromEmailOrName')
 const readUserFromEmail = require('../db/user/readUserFromEmail')
 const readUserFromUrl = require('../db/user/readUserFromUrl')
 const readUser = require('../db/user/readUser')
@@ -29,25 +29,31 @@ const router = new express.Router()
 router.get(
     '/id/:id',
     async (req, res) => {
+
+        // SQL Query result
         const result = await readUser(req.params.id)
 
+        // Test result
         if (!result.success) return res.sendStatus(500)
-        if (!result.result) return res.sendStatus(404)
+        if (!result.data) return res.sendStatus(404)
 
-        return res.json(result.result)
+        return res.json(result.data)
     }
 )
 
 // User read
 router.get(
-    '/:url',
+    '/url/:url',
     async (req, res) => {
+
+        // SQL Query result
         const result = await readUserFromUrl(req.params.url)
 
+        // Test result
         if (!result.success) return res.sendStatus(500)
-        if (!result.result) return res.sendStatus(404)
+        if (!result.data) return res.sendStatus(404)
 
-        return res.json(result.result)
+        return res.json(result.data)
     }
 )
 
@@ -66,7 +72,8 @@ router.post(
     isUserValid,
     async (req, res) => {
         try {
-            
+
+            // Get user URL
             const url = req.body.name.trim().toLowerCase().replace(' ', '-')
 
             // Create user in database
@@ -81,12 +88,13 @@ router.post(
             const token = await generateAuthToken(req.body.email)
             const queryJwt = await createJwt(result.result.id, token)
 
+            // Test result
             if (queryJwt.success) {
                 return res.status(201).json({ token })
             } else {
                 return res.status(500).send(queryJwt.result)
             }
-            
+
         } catch (error) {
             res.status(500).send(error)
         }
@@ -116,6 +124,7 @@ router.post(
         const token = await generateAuthToken(req.body.email)
         const queryJwt = await createJwt(result.result.id, token)
 
+        // Test result
         if (queryJwt.success) {
             return res.json({ token })
         } else {
