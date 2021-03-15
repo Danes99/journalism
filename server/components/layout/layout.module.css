@@ -1,3 +1,19 @@
+/* Header */
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+.header img {
+
+    height: 7.5vh;
+
+    margin: 0;
+    padding: 0;
+}
+
+/* Content */
 .container {
   max-width: 48rem;
   padding: 0 1rem;
@@ -8,32 +24,18 @@
   min-height: 100vh;
 }
 
-.header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.mainContent {
+    flex-grow: 1;
 }
 
-.headerImage {
-  width: 6rem;
-  height: 6rem;
-}
-
-.headerHomeImage {
-  width: 8rem;
-  height: 8rem;
+.mainContentHeader {
+    text-align: center;
 }
 
 .backToHome {
-  margin: 3rem 0 0;
+  color: #777;
 }
 
-.Page {
-  display: flex;
-  flex-direction: column;
-  min-height: 36vh;
-}
-
-.mainContent {
-  flex-grow: 1;
-}
+.backToHome:hover {
+    color: rgb(112, 243, 122);
+  }

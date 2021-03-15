@@ -21,11 +21,11 @@ header img {
 }
 
 footer {
-    background-color: yellow;
+    background-color: transparent;
     color: black;
-    border-top: 1px solid #eeeeee;
-    margin-top: 16px;
-    padding: 16px 16px;
+    border-top: 1px solid #bbbbbb;
+    margin-top: 1rem;
+    padding: 1rem;
 }
 
 

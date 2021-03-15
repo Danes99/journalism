@@ -15,53 +15,58 @@ export const siteTitle = name
 // Layout
 export default function Layout({ children, home }) {
     return (
-        <div className={styles.container}>
-
+        <>
+            {/* HTML page Head */}
             <Head>
+
+                <title>{home ? name : 'Home'}</title>
 
                 <link rel="icon" href="/svg/logo.svg" />
 
-                <meta
-                    name="description"
-                    content="Journalism"
-                />
-
+                <meta name="Journalism" content="Journalism" />
                 <meta name="og:title" content={siteTitle} />
 
-                <title>{home ? name : 'Home'}</title>
             </Head>
 
 
-            <div className={styles.mainContent}>
-                
-                {/*Header*/}
+
+            {/* HTML body content */}
+            <div className={styles.container}>
+
+                {/* Page Header */}
                 <header className={styles.header}>
                     <Link href="/">
                         <img src='/svg/logo.svg' alt='next' />
                     </Link>
                 </header>
 
-                {/* Main content */}
-                <main>
-                    {children}
-                </main>
+                <div className={styles.mainContent}>
+
+                    <div className={styles.mainContentHeader}>
+                        <p>Main Content Section</p>
+                    </div>
+
+                    {/* Main content */}
+                    <main>{children}</main>
+
+                </div>
+
+                {/* Page Footer */}
+                <footer>
+
+                    {/* Back to Home Click */}
+                    {!home && (
+                        <Link href="/" >
+                            <a className={styles.backToHome}>← Back to home</a>
+                        </Link>
+                    )}
+
+                    {/* Media Name */}
+                    <h2>Journalism</h2>
+                </footer>
 
             </div>
 
-            <footer>
-
-                {!home && (
-                    <div className={styles.backToHome}>
-                        <Link href="/">
-                            <a>← Back to home</a>
-                        </Link>
-                    </div>
-                )}
-
-                <h2>Journalism</h2>
-
-            </footer>
-
-        </div>
+        </>
     )
 }
