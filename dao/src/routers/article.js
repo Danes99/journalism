@@ -24,9 +24,25 @@ router.get(
     async (req, res) => {
         try {
 
+            // Test id
+            if (!req.params.id) return res.status(400).send('ID not defined')
+            if (typeof parseInt(req.params.id) !== 'number') return res.status(400).send('ID is n ot a number')
+
             // SQL Query result
             const result = await readArticle(req.params.id)
-            res.status(result.success ? 200 : 500).send(result.result)
+
+            // Send result
+            if (result.success) {
+                if (result.data) {
+                    return res.status(200).send(result.data)
+                } else {
+                    res.sendStatus(404)
+                }
+            } else {
+                res.sendStatus(500)
+            }
+
+            // res.status(result.success ? 200 : 500).send(result.result)
 
         } catch (error) {
             console.log(error)
