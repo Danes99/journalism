@@ -17,3 +17,5 @@ done
 git add .
 git commit -m "$commitMessage "
 git push
+
+# https://www.onlinetutorialspoint.com/git/step-by-step-how-to-push-the-project-into-git-repository.html

@@ -37,3 +37,5 @@ npm run build
 cd ../bls/public/build
 rm -rf ui/
 mv ../../../ui/build ./ui
+
+# https://reactjs.org/docs/optimizing-performance.html

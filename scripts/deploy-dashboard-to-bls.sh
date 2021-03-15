@@ -36,3 +36,5 @@ npm run build
 cd ../bls/public/build
 rm -rf dashboard/
 mv ../../../front/build ./dashboard
+
+# https://reactjs.org/docs/optimizing-performance.html
