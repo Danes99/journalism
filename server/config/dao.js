@@ -1,6 +1,6 @@
 // DAO options
-const DAO_PORT = 81
-const DAO_PROTOCOL = 'http'
+const DAO_PORT = process.env.DAO_PORT || 81
+const DAO_PROTOCOL = process.env.DAO_PROTOCOL || 'http'
 
 // DAO base url
 const DAO_BASE_URL = `${DAO_PROTOCOL}://${process.env.DAO_BASE_URL || 'localhost'}:${DAO_PORT}/`

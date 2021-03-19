@@ -34,8 +34,8 @@ npm run build
 # Move compiled React.js application (build) 
 # from ./ui to the ./bls/public/build
 # remame it ./ui
-cd ../bls/public/build
-rm -rf ui/
-mv ../../../ui/build ./ui
+cd ../nginx
+rm -rf ./nginx
+mv ../ui/build ./
 
 # https://reactjs.org/docs/optimizing-performance.html

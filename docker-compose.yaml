@@ -2,21 +2,40 @@ version: "3.3"
 
 services:
 
-  # Business Service Logic (BLS)
-  # Node.js
-  # bls:
-  #   container_name: bls
-  #   build:
-  #     context: ./bls
-  #     dockerfile: ./Dockerfile
-  #   restart: always
-  #   ports:
-  #     - 80:80
-  #   command: ["npm", "start", "--", "--db=postgresql"]
-  #   networks:
-  #     - webnet
-  #   environment:
-  #     - DAO_BASE_URL=dao
+  # Web Server
+  # Nginx
+  nginx:
+    container_name: nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    restart: always
+    ports: 
+      - 80:80
+      - 8080:8080
+    networks:
+      - webnet
+    environment:
+      SERVER_BASE_URL: server
+      SERVER_PORT: 80
+    
+  # Client Web Server
+  # Next.js
+  server:
+    container_name: server
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    command: ["npm", "start"]
+    networks:
+      - webnet
+    environment:
+      PORT: 80
+      DAO_PORT: 81
+      DAO_BASE_URL: dao
 
   # Data Access Object (DAO)
   # Node.js
@@ -24,7 +43,7 @@ services:
     container_name: dao
     build:
       context: ./dao
-      dockerfile: ./Dockerfile
+      dockerfile: Dockerfile
     restart: always
     ports:
       - 81:81
@@ -60,7 +79,7 @@ services:
     container_name: postgres
     build:
       context: ./postgres
-      dockerfile: ./Dockerfile
+      dockerfile: Dockerfile
     restart: always
     ports:
       - 5432:5432
