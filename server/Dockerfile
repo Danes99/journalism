@@ -8,4 +8,4 @@ COPY ./ /usr/src/app/
 RUN npm install --production
 RUN npm run build
 
-EXPOSE 3000
+EXPOSE 3001
