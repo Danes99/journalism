@@ -1,5 +1,5 @@
 // Import pre-installed modules
-import React, { useState } from 'react'
+import React from 'react'
 
 // Import downloaded modules
 import { NavLink } from 'react-router-dom'
@@ -11,6 +11,8 @@ const Page = () => {
 
             <h1 class="block font-sans text-red-700">404</h1>
             <p class="block font-sans text-blue-700">Page not found</p>
+
+            <a className="bg-blue-900 text-white block px-3 py-2 rounded-md text-base font-medium m-4"><NavLink to='/'>Go Home</NavLink></a>
         </div>
     )
 }
