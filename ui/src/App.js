@@ -1,36 +1,39 @@
 // Import downloaded modules
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
+// import logo from './logo.svg';
+// import './App.css';
+
 // Import components
-import TopNav from './components/TopNav/TopNav'
-import Footer from './components/Footer/Footer'
-import Header from './components/Header/Header'
+import NavBar from './components/Navbar'
 
-import logo from './logo.svg';
-
-// Import CSS
-import 'bootstrap/dist/css/bootstrap.min.css'
-import './App.css'
+// Import pages
+import SignIn from './page/SignIn'
+import SignUp from './page/SingUp'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Router>
+
+            {/* Navbar */}
+            <NavBar />
+
+            {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+            <Switch>
+
+                {/* <Route path='/' exact component={Home} /> */}
+                <Route path='/signIn' exact component={SignIn} />
+                <Route path='/signup' exact component={SignUp} />
+                        
+
+                {/* Always put '/' in last! */}
+                {/* <Route path='/' component={NotFound404} /> */}
+
+            </Switch>
+
+        </Router>
+    );
 }
 
 export default App;

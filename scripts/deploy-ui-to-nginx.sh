@@ -7,7 +7,7 @@ clear
 cd `dirname "$0"`
 cd ../ui
 
-# Does package-lock.json exist ?
+# Does package-lock.json exist?
 FILE=./package-lock.json
 if test -f "$FILE"; then
     echo "$FILE exists."
@@ -19,7 +19,7 @@ else
   npm i
 fi
 
-# Does node_modules exist ?
+# Does node_modules exist?
 FOLDER=./node_modules
 if test -r "$FOLDER"; then
     echo "$FOLDER exists."
@@ -35,7 +35,7 @@ npm run build
 # from ./ui to the ./bls/public/build
 # remame it ./ui
 cd ../nginx
-rm -rf ./nginx
+rm -rf ./build
 mv ../ui/build ./
 
 # https://reactjs.org/docs/optimizing-performance.html
