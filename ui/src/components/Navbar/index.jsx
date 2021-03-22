@@ -4,6 +4,10 @@ import React, { useState } from 'react'
 // Import downloaded modules
 import { NavLink } from 'react-router-dom'
 
+// Import SVG
+import bigLogo from '../../svg/workflow-logo-indigo-500-mark-white-text.svg'
+import smallLogo from '../../svg/workflow-mark-indigo-500.svg'
+
 // Constants
 const INITIAL_STATE_IS_USER_MENU_ON = false
 const INITIAL_STATE_IS_MAIN_MENU_ON = false
@@ -57,20 +61,28 @@ const Navbar = () => {
                         </button>
 
                     </div>
+
+                    {/* NavBar Menu */}
                     <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
 
+                        {/* Logo */}
                         <div className="flex-shrink-0 flex items-center">
-                            <img className="block lg:hidden h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow" />
-                            <img className="hidden lg:block h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg" alt="Workflow" />
+                            <NavLink to='/'>
+                                <img className="block lg:hidden h-8 w-auto" src={smallLogo} alt="Workflow" />
+                                <img className="hidden lg:block h-8 w-auto" src={bigLogo} alt="Workflow" />
+                            </NavLink>
                         </div>
 
+                        {/* NavBar Navigation */}
                         <div className="hidden sm:block sm:ml-6">
                             <div className="flex space-x-4">
                                 {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
-                                <a className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
-                                <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Team</a>
-                                <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Projects</a>
-                                <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Calendar</a>
+
+
+                                <a className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"><NavLink to='/'>Dashboard</NavLink></a>
+                                <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"><NavLink to='/about'>About</NavLink></a>
+                                <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"><NavLink to='/help'>Help</NavLink></a>
+                                
                             </div>
                         </div>
                     </div>

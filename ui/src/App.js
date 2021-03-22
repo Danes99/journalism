@@ -6,33 +6,54 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 // Import components
 import NavBar from './components/Navbar'
+import Footer from './components/Footer'
 
 // Import pages
+import About from './page/About'
+import ArticleCreate from './page/ArticleCreate'
+import ArticleUpdate from './page/ArticleUpdate'
+import Help from './page/Help'
+import Home from './page/Home'
+import Settings from './page/Settings'
 import SignIn from './page/SignIn'
 import SignUp from './page/SingUp'
+import NotFound404 from './page/404'
 
 function App() {
     return (
-        <Router>
+        <div class="flex flex-col min-h-screen">
+            <Router>
 
-            {/* Navbar */}
-            <NavBar />
+                <div class="flex-grow">
 
-            {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-            <Switch>
+                    {/* Navbar */}
+                    <NavBar />
 
-                {/* <Route path='/' exact component={Home} /> */}
-                <Route path='/signIn' exact component={SignIn} />
-                <Route path='/signup' exact component={SignUp} />
-                        
+                    {/* A <Switch> looks through its children <Route>s and renders the first one that matches the current URL. */}
+                    <Switch>
 
-                {/* Always put '/' in last! */}
-                {/* <Route path='/' component={NotFound404} /> */}
+                        <Route path='/' exact component={Home} />
+                        <Route path='/help' exact component={Help} />
+                        <Route path='/about' exact component={About} />
+                        <Route path='/signIn' exact component={SignIn} />
+                        <Route path='/signUp' exact component={SignUp} />
+                        <Route path='/settings' exact component={Settings} />
+                        <Route path='/article/create' exact component={ArticleCreate} />
 
-            </Switch>
+                        <Route path='/article/update' component={ArticleUpdate} />
 
-        </Router>
+                        {/* Always put 404 Not Found ('/' not exact) in last! */}
+                        <Route path='/' component={NotFound404} />
+
+                    </Switch>
+
+                </div>
+
+                {/* Footer */}
+                <Footer />
+
+            </Router>
+        </div>
     );
 }
 
