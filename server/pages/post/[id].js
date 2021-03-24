@@ -22,7 +22,7 @@ const article500 = { title: 'Server error', content: '502 Bad Gateway' }
 export async function getServerSideProps({ params }) {
 
     // Get the article from the DAO
-    const req = await fetch(DAO_ENDPOINT_ARTICLE + params.id)
+    const req = await fetch(DAO_ENDPOINT_ARTICLE + 'id/' + params.id)
 
     // Test HTTP request result
     let article
