@@ -9,6 +9,7 @@ const isArticleValid = require('../middleware/article/isArticleValid')
 // Import database functions (CRUD)
 const createArticle = require('../db/article/createArticle')
 const readArticle = require('../db/article/readArticle')
+const readArticleAll = require('../db/article/readArticleAll')
 const readArticleSearch = require('../db/article/readArticleSearch')
 const updateArticle = require('../db/article/updateArticle')
 const deleteArticle = require('../db/article/deleteArticle')
@@ -19,7 +20,7 @@ const router = new express.Router()
 // Read article by ID
 // No need to be authenticated
 router.get(
-    '/:id',
+    '/id/:id',
     isIdValid,
     async (req, res) => {
         try {
@@ -43,6 +44,29 @@ router.get(
             }
 
             // res.status(result.success ? 200 : 500).send(result.result)
+
+        } catch (error) {
+            console.log(error)
+            res.status(500).send(error)
+        }
+    }
+)
+
+router.get(
+    '/all',
+    auth,
+    async (req, res) => {
+        try {
+
+            // SQL Query result
+            const result = await readArticleAll(req.user_id)
+
+            // Send results
+            if (result.success) {
+                res.status(200).json(result.data)
+            } else {
+                res.sendStatus(500)
+            }
 
         } catch (error) {
             console.log(error)

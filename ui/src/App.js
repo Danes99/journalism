@@ -1,30 +1,36 @@
+// Import pre-installed modules
+import { useState } from 'react'
+
 // Import downloaded modules
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
-// import logo from './logo.svg';
-// import './App.css';
 
 // Import components
 import NavBar from './components/Navbar'
 import Footer from './components/Footer'
+import PrivateRoute from './components/PrivateRoute'
 
 // Import pages
-import About from './page/About'
-import ArticleCreate from './page/ArticleCreate'
-import ArticleUpdate from './page/ArticleUpdate'
-import Help from './page/Help'
-import Home from './page/Home'
-import Settings from './page/Settings'
-import SignIn from './page/SignIn'
-import SignUp from './page/SingUp'
-import NotFound404 from './page/404'
+import About from './pages/About'
+import Article from './pages/Article'
+import ArticleCreate from './pages/ArticleCreate'
+import ArticleUpdate from './pages/ArticleUpdate'
+import Help from './pages/Help'
+import Home from './pages/Home'
+import Settings from './pages/Settings'
+import SignIn from './pages/SignIn'
+import SignUp from './pages/SingUp'
+import NotFound404 from './pages/404'
 
 function App() {
+
+    // State
+    const [jwt, setJwt] = useState(null)
+
     return (
-        <div class="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen">
             <Router>
 
-                <div class="flex-grow">
+                <div className="flex-grow">
 
                     {/* Navbar */}
                     <NavBar />
@@ -32,15 +38,18 @@ function App() {
                     {/* A <Switch> looks through its children <Route>s and renders the first one that matches the current URL. */}
                     <Switch>
 
+                        {/* Private routes, do not need to be authenticated to access */}
                         <Route path='/' exact component={Home} />
-                        <Route path='/help' exact component={Help} />
-                        <Route path='/about' exact component={About} />
                         <Route path='/signIn' exact component={SignIn} />
                         <Route path='/signUp' exact component={SignUp} />
-                        <Route path='/settings' exact component={Settings} />
-                        <Route path='/article/create' exact component={ArticleCreate} />
+                        <Route path='/help' exact component={Help} />
+                        <Route path='/about' exact component={About} />
 
-                        <Route path='/article/update' component={ArticleUpdate} />
+                        {/* Private routes, need to be authenticated to access */}
+                        <PrivateRoute path='/settings' exact component={Settings} />
+                        <PrivateRoute path='/article' exact component={Article} />
+                        <PrivateRoute path='/article/create' exact component={ArticleCreate} />
+                        <PrivateRoute path='/article/update' component={ArticleUpdate} isAuth={false}/>
 
                         {/* Always put 404 Not Found ('/' not exact) in last! */}
                         <Route path='/' component={NotFound404} />

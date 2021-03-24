@@ -4,7 +4,7 @@ const DAO_PROTOCOL = window.location.protocol
 const DAO_BASE_URL = window.location.hostname
 
 // DAO url
-const DAO_URL = `${DAO_PROTOCOL}://${DAO_BASE_URL}:${DAO_PORT}/`
+const DAO_URL = `${DAO_PROTOCOL}//${DAO_BASE_URL}:${DAO_PORT}/`
 
 // DAO endpoint
 const DAO_ENDPOINT_ARTICLE = DAO_URL + 'article/'

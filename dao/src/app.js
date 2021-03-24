@@ -1,4 +1,5 @@
 // Import downloaded modules
+const cors = require('cors')
 const express = require('express')
 const bodyParser = require("body-parser")
 
@@ -31,10 +32,12 @@ const app = express()
 // App Variables
 app.set('AppName', 'Data Access Object (DAO)')
 
-// Define express config
-// Parse HTTP Request body
+// Define express config: Parse HTTP Request body
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
+// Allow-Control-Allow-Origin for the web browser
+app.use(cors())
 
 // Use routers
 app.use('/article', routerArticle)
