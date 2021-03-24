@@ -24,7 +24,10 @@ import NotFound404 from './pages/404'
 function App() {
 
     // State
-    const [jwt, setJwt] = useState(null)
+    const [jwt, setJwt] = useState(window.localStorage.getItem('jwt'))
+    // https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+
+    // console.log(jwt)
 
     return (
         <div className="flex flex-col min-h-screen">
