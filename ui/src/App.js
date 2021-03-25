@@ -1,5 +1,5 @@
 // Import pre-installed modules
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 // Import downloaded modules
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -21,13 +21,56 @@ import SignIn from './pages/SignIn'
 import SignUp from './pages/SingUp'
 import NotFound404 from './pages/404'
 
+// Import config
+import { DAO_ENDPOINT_USER_IS_LOGGED_IN } from './config/dao'
+
+// Function
+let tokenReceived
+
 function App() {
 
-    // State
-    const [jwt, setJwt] = useState(window.localStorage.getItem('jwt'))
-    // https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+    // Create tokenReceived(): use when received JWT from authentication 
+    useEffect(() => {
 
-    // console.log(jwt)
+        tokenReceived = () => setIsAuth(true)
+
+    }, [])
+
+    const [authRequestHasBeenMade, setAuthRequestHasBeenMade] = useState(false)
+    const [isAuth, setIsAuth] = useState(
+        () => {
+
+            // Get jwt from web browser local storage
+            // https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+            const jwt = window.localStorage.getItem('jwt')
+
+            // Is there a JWT in Web Browser Local Storage?
+            if (!jwt) {
+                setAuthRequestHasBeenMade(true)
+                return false
+            }
+
+
+            // Put JWT in HTTP Request Header
+            // Test (ask DAO) if JWT is valid
+            const requestOptions = {
+                headers: { 'Authorization': jwt }
+            }
+
+            // HTTP GET request
+            fetch(DAO_ENDPOINT_USER_IS_LOGGED_IN, requestOptions)
+                .then(response => {
+
+                    // Is JWT still valid?
+                    if (response.status === 200) setIsAuth(true)
+
+                    // Request has been made
+                    setAuthRequestHasBeenMade(true)
+                })
+
+            return false
+        }
+    )
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -38,26 +81,32 @@ function App() {
                     {/* Navbar */}
                     <NavBar />
 
-                    {/* A <Switch> looks through its children <Route>s and renders the first one that matches the current URL. */}
-                    <Switch>
+                    {authRequestHasBeenMade ?
 
-                        {/* Private routes, do not need to be authenticated to access */}
-                        <Route path='/' exact component={Home} />
-                        <Route path='/signIn' exact component={SignIn} />
-                        <Route path='/signUp' exact component={SignUp} />
-                        <Route path='/help' exact component={Help} />
-                        <Route path='/about' exact component={About} />
+                        <Switch>
+                            {/* A <Switch> looks through its children <Route>s and renders the first one that matches the current URL. */}
 
-                        {/* Private routes, need to be authenticated to access */}
-                        <PrivateRoute path='/settings' exact component={Settings} />
-                        <PrivateRoute path='/article' exact component={Article} />
-                        <PrivateRoute path='/article/create' exact component={ArticleCreate} />
-                        <PrivateRoute path='/article/update' component={ArticleUpdate} isAuth={false}/>
+                            {/* Private routes, do not need to be authenticated to access */}
+                            <Route path='/' exact component={Home} />
+                            <Route path='/help' exact component={Help} />
+                            <Route path='/about' exact component={About} />
 
-                        {/* Always put 404 Not Found ('/' not exact) in last! */}
-                        <Route path='/' component={NotFound404} />
 
-                    </Switch>
+                            <Route path='/signIn' exact render={ (props) => <SignIn tokenReceived={tokenReceived} /> } />
+                            <Route path='/signUp' exact render={ (props) => <SignUp tokenReceived={tokenReceived} /> } />
+
+                            {/* Private routes, need to be authenticated to access */}
+                            <PrivateRoute path='/settings' exact component={Settings} isAuth={isAuth} />
+                            <PrivateRoute path='/article' exact component={Article} isAuth={isAuth} />
+                            <PrivateRoute path='/article/create' exact component={ArticleCreate} isAuth={isAuth} />
+                            <PrivateRoute path='/article/update' component={ArticleUpdate} isAuth={isAuth} />
+
+                            {/* 404 */}
+                            <Route component={NotFound404} />
+
+                        </Switch>
+
+                        : <p>Loading</p>}
 
                 </div>
 

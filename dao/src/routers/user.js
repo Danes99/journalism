@@ -25,6 +25,14 @@ const createJwt = require('../db/jwt/createJwt')
 // Create Express.js router
 const router = new express.Router()
 
+// Test if user is logged in
+// Test the validity of the JWT in header
+router.get(
+    '/isLoggedIn',
+    auth,
+    async (req, res) => res.sendStatus(200)
+)
+
 // User read
 router.get(
     '/id/:id',

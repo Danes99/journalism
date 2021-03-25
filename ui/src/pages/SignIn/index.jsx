@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 
 // Import downloaded modules
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 
 // Import SVG
 import logo from '../../svg/workflow-mark-indigo-600.svg'
@@ -11,18 +11,21 @@ import logo from '../../svg/workflow-mark-indigo-600.svg'
 import { DAO_ENDPOINT_USER_LOGIN } from '../../config/dao'
 
 // Constants: Initial state
-const INITIAL_SATE_LOGIN_REQUEST_HAS_BEEN_SEND = false
-const INITIAL_SATE_LOGIN_REQUEST_HAS_BEEN_RECEIVED = null
-const INITIAL_SATE_LOGIN_REQUEST_RESULT = null
+// const INITIAL_SATE_LOGIN_REQUEST_HAS_BEEN_SEND = false
+// const INITIAL_SATE_LOGIN_REQUEST_HAS_BEEN_RECEIVED = null
+// const INITIAL_SATE_LOGIN_REQUEST_RESULT = null
 
-const Page = () => {
+const Page = (props) => {
+
+    // History
+    const history = useHistory()
 
     // State
     const [userEmail, setUserEmail] = useState(null)
     const [userPassword, setUserPassword] = useState(null)
-    const [loginRequestHasBeenSend, setLoginRequestHasBeenSend] = useState(INITIAL_SATE_LOGIN_REQUEST_HAS_BEEN_SEND)
-    const [loginRequestHasBeenReceived, setLoginRequestHasBeenReceived] = useState(INITIAL_SATE_LOGIN_REQUEST_HAS_BEEN_RECEIVED)
-    const [loginRequestResult, setLoginRequestResult] = useState(INITIAL_SATE_LOGIN_REQUEST_RESULT)
+    // const [loginRequestHasBeenSend, setLoginRequestHasBeenSend] = useState(INITIAL_SATE_LOGIN_REQUEST_HAS_BEEN_SEND)
+    // const [loginRequestHasBeenReceived, setLoginRequestHasBeenReceived] = useState(INITIAL_SATE_LOGIN_REQUEST_HAS_BEEN_RECEIVED)
+    // const [loginRequestResult, setLoginRequestResult] = useState(INITIAL_SATE_LOGIN_REQUEST_RESULT)
 
     // Update User Email
     const handleChangeUserEmail = (e) => {
@@ -35,10 +38,10 @@ const Page = () => {
     }
 
     // Request: HTTP POST Login
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
 
         // Change layout when login request has been made
-        setLoginRequestHasBeenSend(true)
+        // setLoginRequestHasBeenSend(true)
 
         const requestOptions = {
             method: 'POST',
@@ -46,17 +49,46 @@ const Page = () => {
             body: JSON.stringify({ email: userEmail, password: userPassword }, null, 4)
         }
 
-        // Send HTTP POST request: login user
-        fetch(DAO_ENDPOINT_USER_LOGIN, requestOptions)
-            .then(
-                response => { 
-                    response.json()
-                    console.log(response.status)
-                    setLoginRequestHasBeenReceived(response.status)
-                }
-            )
-            .then(data => setLoginRequestResult(data))
-            .catch(error => console.log(error))
+        try {
+
+            // Send HTTP POST request: login user
+            const response = await fetch(DAO_ENDPOINT_USER_LOGIN, requestOptions)
+
+            // setLoginRequestHasBeenReceived(response.status)
+
+            // User is authenticated (Good credentials)
+            if (response.status === 200) {
+
+                // HTTP response body
+                const body = await response.json()
+
+                // Set JWT in local storage
+                // setLoginRequestResult(body.token)
+                window.localStorage.setItem('jwt', body.token)
+
+                // Redirect to article main menu
+                props.tokenReceived()
+                history.push('/article')
+
+            }
+
+            // User is not authenticated (Bad credentials)
+            if (response.status === 400) {
+
+                // Do something
+            }
+
+            // Server Error
+            if (response.status === 500) {
+
+                // Do something
+            }
+
+
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 
     return (

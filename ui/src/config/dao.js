@@ -11,6 +11,7 @@ const DAO_ENDPOINT_USER = DAO_URL + 'user/'
 const DAO_ENDPOINT_ARTICLE = DAO_URL + 'article/'
 
 // DAO endpoints: user
+const DAO_ENDPOINT_USER_IS_LOGGED_IN = DAO_ENDPOINT_USER + 'isLoggedIn/'
 const DAO_ENDPOINT_USER_LOGIN = DAO_ENDPOINT_USER + 'login/'
 const DAO_ENDPOINT_USER_SIGNUP = DAO_ENDPOINT_USER
 
@@ -35,6 +36,7 @@ export {
     // User endpoints
     DAO_ENDPOINT_USER_LOGIN,
     DAO_ENDPOINT_USER_SIGNUP,
+    DAO_ENDPOINT_USER_IS_LOGGED_IN,
 
     // Article endpoints
     DAO_ENDPOINT_ARTICLE_READ_ALL

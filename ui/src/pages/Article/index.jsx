@@ -14,14 +14,12 @@ const DAO_ENDPOINT_GET_EVERY_ARTICLES = DAO_ENDPOINT_ARTICLE + 'all/'
 const INITIAL_STATE_HAS_ARTICLE_REQUEST_ENDED = false
 const INITIAL_STATE_ARTICLE_LIST = null
 
-const testToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiY2xlbWVudC5zdGF1bmVyQGdtYWlsLmNvbSIsImlhdCI6MTYxNjUzMDk1MCwiZXhwIjoxNjE2NTc0MTUwfQ.oEy3QciadvuoZxY8nqpXJtzL8fEeUjCYQvDx3Xh-ttA'
-
 const Page = () => {
 
     const fetchArticles = async () => {
 
         const requestOptions = {
-            headers: { 'Authorization': testToken }
+            headers: { 'Authorization': window.localStorage.getItem('jwt') }
         }
 
         // Fetch article list
@@ -30,8 +28,6 @@ const Page = () => {
 
         setArticleList(body)
         setHasArticleRequestEnded(true)
-
-        console.log(body)
     }
 
     // State
@@ -47,13 +43,15 @@ const Page = () => {
 
         {hasArticleRequestEnded ?
             articleList ?
-                <div>
+
+                <ul>
                     {articleList.map(
-                        item => <div id={`article_${item.id}`}>
+                        item => <li key={`article_${item.id}`}>
                             {item.title}
-                        </div>
+                        </li>
                     )}
-                </div>
+                </ul>
+
                 :
                 <p className="block font-sans">Error</p>
             :
