@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 
 // Import downloaded modules
+import validator from 'validator'
 import { NavLink, useHistory } from 'react-router-dom'
 
 // Import SVG
@@ -23,6 +24,9 @@ const Page = (props) => {
     // State
     const [userEmail, setUserEmail] = useState(null)
     const [userPassword, setUserPassword] = useState(null)
+    const [isUserEmailValid, setIsUserEmailValid] = useState(false)
+    const [isUserPasswordValid, setIsUserPasswordValid] = useState(false)
+
     // const [loginRequestHasBeenSend, setLoginRequestHasBeenSend] = useState(INITIAL_SATE_LOGIN_REQUEST_HAS_BEEN_SEND)
     // const [loginRequestHasBeenReceived, setLoginRequestHasBeenReceived] = useState(INITIAL_SATE_LOGIN_REQUEST_HAS_BEEN_RECEIVED)
     // const [loginRequestResult, setLoginRequestResult] = useState(INITIAL_SATE_LOGIN_REQUEST_RESULT)
@@ -30,11 +34,13 @@ const Page = (props) => {
     // Update User Email
     const handleChangeUserEmail = (e) => {
         setUserEmail(e.currentTarget.value)
+        setIsUserEmailValid(validator.isEmail(e.currentTarget.value))
     }
 
     // Update User Password
     const handleChangeUserPassword = (e) => {
         setUserPassword(e.currentTarget.value)
+        setIsUserPasswordValid(validator.isStrongPassword(e.currentTarget.value))
     }
 
     // Request: HTTP POST Login
@@ -84,12 +90,13 @@ const Page = (props) => {
                 // Do something
             }
 
-
         } catch (error) {
             console.log(error)
         }
 
     }
+
+    const canSubmit = isUserEmailValid && isUserPasswordValid
 
     return (
         <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -158,7 +165,7 @@ const Page = (props) => {
                     </div>
 
                     {/* Sign in button */}
-                    <button type="submit" onClick={handleSubmit}
+                    <button onClick={handleSubmit} disabled={!canSubmit}
                         className="transition duration-500 group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                         
