@@ -6,7 +6,8 @@ const WebPage = (props) => {
     return (
         // <div className="container mx-auto px-40 flex flex-col flex-wrap justify-between">
 
-        <div className="flex flex-col items-center justify-center py-4 px-4 sm:px-6 lg:px-8">
+        // sm:px-6 lg:px-8
+        <div className="flex flex-col items-center justify-center py-4 px-4">
 
             {/* Page Title */}
             {props.title ?
@@ -26,9 +27,7 @@ const WebPage = (props) => {
                 : null}
 
             {/* Page Content */}
-            <div className="">
-                {props.children}
-            </div>
+            {props.children}
         </div>
     )
 }

@@ -8,11 +8,9 @@ CREATE TABLE users(
     description VARCHAR(5000) NOT NULL DEFAULT 'Hello, this is my description.',
     email VARCHAR(64) NOT NULL UNIQUE,
 	password VARCHAR(150),
-    created_at timestamp with time zone NOT NULL DEFAULT ( NOW() AT TIME ZONE 'UTC-1' ),
-    updated_at timestamp with time zone NOT NULL DEFAULT ( NOW() AT TIME ZONE 'UTC-1' )
+    created_at timestamp with time zone NOT NULL DEFAULT ( NOW() AT TIME ZONE 'UTC' ),
+    updated_at timestamp with time zone NOT NULL DEFAULT ( NOW() AT TIME ZONE 'UTC' )
 );
-
--- 'UTC-1' is Paris (France) timezone
 
 -- Create a Trigger function
 -- to update "updated_at" when UPDATE the SQL table
@@ -20,7 +18,7 @@ CREATE TABLE users(
 CREATE OR REPLACE FUNCTION trg_fn_users_updated_at()
 RETURNS TRIGGER AS $$
 BEGIN
-   NEW.updated_at = NOW() AT TIME ZONE 'UTC-1'; 
+   NEW.updated_at = NOW() AT TIME ZONE 'UTC'; 
    RETURN NEW;
 END;
 $$ language 'plpgsql';

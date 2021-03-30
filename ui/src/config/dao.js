@@ -22,16 +22,16 @@ const DAO_ENDPOINT_ARTICLE_READ_ALL = DAO_ENDPOINT_ARTICLE + 'all/'
 export {
 
     // Options
-    DAO_PROTOCOL,
     DAO_PORT,
+    DAO_PROTOCOL,
     DAO_BASE_URL,
 
     // URI
     DAO_URL,
 
     // Main endpoint
-    DAO_ENDPOINT_ARTICLE,
     DAO_ENDPOINT_USER,
+    DAO_ENDPOINT_ARTICLE,
 
     // User endpoints
     DAO_ENDPOINT_USER_LOGIN,

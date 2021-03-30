@@ -5,6 +5,9 @@ import React, { useState } from 'react'
 import validator from 'validator'
 import { useHistory } from 'react-router-dom'
 
+// Import components
+import WebPage from '../../components/WebPage'
+
 // Import Config
 import { DAO_ENDPOINT_USER } from '../../config/dao'
 
@@ -104,7 +107,7 @@ const Page = (props) => {
     const canSubmit = isUserNameValid && isUserEmailValid && isUserPasswordValid
 
     return (
-        <>
+        <WebPage  title="Sign up">
             {/* Input Form */}
             <div className="mt-5 md:mt-0 md:col-span-2">
                 <div className="shadow sm:rounded-md sm:overflow-hidden my-5 mx-20">
@@ -186,7 +189,7 @@ const Page = (props) => {
                 </div>
             </div>
 
-        </>
+        </WebPage>
     )
 }
 
