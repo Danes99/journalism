@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 // Import CSS
 import styles from './layout.module.css'
-import utilStyles from '../../styles/utils.module.css'
+// import utilStyles from '../../styles/utils.module.css'
 
 // Constants
 const name = 'Journalism'

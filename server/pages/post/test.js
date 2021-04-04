@@ -10,11 +10,27 @@ import Layout from '../../components/layout'
 import styles from './styles.module.css'
 
 // Import Constants
-import { DAO_ENDPOINT_ARTICLE, DAO_ENDPOINT_USER } from '../../config/dao'
+// import { DAO_ENDPOINT_ARTICLE, DAO_ENDPOINT_USER } from '../../config/dao'
 
 // Articles
-const article404 = { title: 'Article does not exist', content: '404 not found' }
-const article500 = { title: 'Server error', content: '502 Bad Gateway' }
+// const article404 = { title: 'Article does not exist', content: '404 not found' }
+// const article500 = { title: 'Server error', content: '502 Bad Gateway' }
+
+const article = {
+    id: 1,
+    user_id: 1,
+    title: 'Test title 1',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    iscompleted: false,
+    created_at: '2021-03-30T17:57:08.023Z',
+    updated_at: '2021-03-30T17:57:08.023Z'
+}
+
+const user = {
+    name: 'Clement Stauner',
+    url: 'clement-stauner',
+    created_at: '2021-03-30T17:56:59.369Z'
+}
 
 // Get data from the API:
 // This function is executed before the rendering of the HTML page.
@@ -22,46 +38,44 @@ const article500 = { title: 'Server error', content: '502 Bad Gateway' }
 export async function getServerSideProps({ params }) {
 
     // Get the article from the DAO
-    const req = await fetch(DAO_ENDPOINT_ARTICLE + 'id/' + params.id)
+    // const req = await fetch(DAO_ENDPOINT_ARTICLE + 'id/' + params.id)
 
-    // Test HTTP request result
-    let article
-    let doGetUser = false
+    // // Test HTTP request result
+    // let article
+    // let doGetUser = false
 
-    // Test HTTP Request status code
-    switch (req.status) {
+    // // Test HTTP Request status code
+    // switch (req.status) {
 
-        // Is article OK?
-        case 200:
-            article = await req.json()
-            doGetUser = true
-            break;
+    //     // Is article OK?
+    //     case 200:
+    //         article = await req.json()
+    //         doGetUser = true
+    //         break;
 
-        // Does article exist?
-        case 404:
-            article = article404
-            break;
+    //     // Does article exist?
+    //     case 404:
+    //         article = article404
+    //         break;
 
-        // Is there server error?
-        case 500:
-            article = article500
-            break;
-        
-        default:
-            article = article500
-            break;
-    }
+    //     // Is there server error?
+    //     case 500:
+    //         article = article500
+    //         break;
 
-    // Get the user from the DAO
-    let user
-    if (doGetUser) {
-        const reqUser = await fetch(DAO_ENDPOINT_USER + 'id/' + article.user_id)
-        user = reqUser.status == 200 ? await reqUser.json() : null
-    } else {
-        user = null
-    }
+    //     default:
+    //         article = article500
+    //         break;
+    // }
 
-    console.log(user)
+    // // Get the user from the DAO
+    // let user
+    // if (doGetUser) {
+    //     const reqUser = await fetch(DAO_ENDPOINT_USER + 'id/' + article.user_id)
+    //     user = reqUser.status == 200 ? await reqUser.json() : null
+    // } else {
+    //     user = null
+    // }
 
     // Return results
     return { props: { article, user } }
