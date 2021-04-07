@@ -31,24 +31,6 @@ const startIfNotStarted = async (clientData, i = 0) => {
 
         return result
 
-        // if (result.success) {
-        //     return result
-        // } else {
-
-        //     const waitTime = TIME_MILLISECONDS_FIRST_WAIT * Math.pow(TIME_WAIT_MULTIPLY_BY, i)
-
-        //     // Wait 5 * 2^i seconds before next trial
-        //     console.log(`Could not connect @ database, retrying in ${waitTime/1000}s`)
-        //     await delay(waitTime)
-
-        //     // Start again, then return result
-        //     // This is a recursive function
-        //     return startIfNotStarted(
-        //         clientData, 
-        //         i < 6 ? i + 1 : 6
-        //     )
-        // }
-
     } catch (error) {
         console.log(error)
     }

@@ -36,6 +36,9 @@ const afterRequestDisplay = (key) => {
         case 400:
             return <div>Bad request</div>
 
+        case 401:
+            return <div>Unauthorized</div>
+
         case 500:
             return <div>Server Error</div>
 
@@ -170,7 +173,6 @@ const Page = () => {
 
     return (
         <WebPage title="New Post">
-            {/* <div className="heading text-center font-bold text-2xl m-5 text-gray-800">New Post</div> */}
 
             {hasRequestBeenMade ?
                 <div className="py-10">

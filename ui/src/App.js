@@ -5,9 +5,11 @@ import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 // Import components
-import NavBar from './components/Navbar'
 import Footer from './components/Footer'
+import NavBar from './components/Navbar'
 import PrivateRoute from './components/PrivateRoute'
+import Spinner from './components/Spinner'
+import WebPage from './components/WebPage'
 
 // Import pages
 import About from './pages/About'
@@ -75,11 +77,10 @@ function App() {
     return (
         <div className="flex flex-col min-h-screen">
             <Router>
-
                 <div className="flex-grow">
 
                     {/* Navbar */}
-                    <NavBar />
+                    <NavBar displayUserMenu={isAuth} />
 
                     {authRequestHasBeenMade ?
 
@@ -91,7 +92,7 @@ function App() {
                             <Route path='/help' exact component={Help} />
                             <Route path='/about' exact component={About} />
 
-
+                            {/* When user is authenticated, use callback function (tokenReceived) */}
                             <Route path='/signIn' exact render={ (props) => <SignIn tokenReceived={tokenReceived} /> } />
                             <Route path='/signUp' exact render={ (props) => <SignUp tokenReceived={tokenReceived} /> } />
 
@@ -106,7 +107,12 @@ function App() {
 
                         </Switch>
 
-                        : <p>Loading</p>}
+                        : 
+                            <WebPage title='Loading'>
+                            {/* Display loading spinner while waiting for the authentication */}
+                            <Spinner />
+                        </WebPage>
+                    }
 
                 </div>
 

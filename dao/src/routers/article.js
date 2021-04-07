@@ -162,7 +162,6 @@ router.delete(
         try {
             // SQL Query result
             const result = await deleteArticle(req.params.id)
-            console.log(result)
 
             if (result.success) {
                 return res.sendStatus(200)

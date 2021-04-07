@@ -18,22 +18,76 @@ const DAO_ENDPOINT_GET_EVERY_ARTICLES = DAO_ENDPOINT_ARTICLE + 'all/'
 const INITIAL_STATE_HAS_ARTICLE_REQUEST_ENDED = false
 const INITIAL_STATE_ARTICLE_LIST = null
 
-// const actionsElement = 
-
 const Page = () => {
 
     const fetchArticles = async () => {
 
-        const requestOptions = {
-            headers: { 'Authorization': window.localStorage.getItem('jwt') }
+        try {
+
+            const requestOptions = {
+                headers: { 'Authorization': window.localStorage.getItem('jwt') }
+            }
+    
+            // Fetch article list
+            const response = await fetch(DAO_ENDPOINT_GET_EVERY_ARTICLES, requestOptions)
+            const body = await response.json()
+    
+            setArticleList(body)
+            setHasArticleRequestEnded(true)
+            
+        } catch (error) {
+            console.log(error)
         }
+    }
 
-        // Fetch article list
-        const response = await fetch(DAO_ENDPOINT_GET_EVERY_ARTICLES, requestOptions)
-        const body = await response.json()
+    // Delete Article
+    // HTTP DELETE to DAO
+    const deleteArticle = async (id) => {
 
-        setArticleList(body)
-        setHasArticleRequestEnded(true)
+        try {
+
+            const requestOptions = {
+                headers: { 'Authorization': window.localStorage.getItem('jwt') },
+                method: 'DELETE'
+            }
+
+            // HTTP DELETE Response from DAO
+            const response = await fetch(DAO_ENDPOINT_ARTICLE + id, requestOptions)
+
+            // Status OK: Article deleted
+            if (response.status === 200) {
+
+                // Refresh article list
+                fetchArticles()
+            }
+
+            // Bad request
+            if (response.status === 400) {
+
+                // Do something
+            }
+
+            // Unauthorized
+            if (response.status === 401) {
+
+                // Do something
+            }
+
+            // Article with this id does not exist
+            if (response.status === 404) {
+
+                // Do something
+            }
+
+            // Server Error
+            if (response.status === 500) {
+
+                // Do something
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     // State
@@ -60,9 +114,9 @@ const Page = () => {
             articleList ?
 
 
-                <div class="overflow-x-auto">
-                    <div class="w-full lg:w-6/6">
-                        <div class="bg-white shadow-md rounded my-6">
+                <div className="overflow-x-auto">
+                    <div className="w-full lg:w-6/6">
+                        <div className="bg-white shadow-md rounded my-6">
 
                             {/* Article list */}
                             <table className="min-w-max w-full table-auto">
@@ -155,7 +209,11 @@ const Page = () => {
                                                     </div>
 
                                                     {/* Delete article (Trash) */}
-                                                    <div className="transition duration-300 w-4 mr-2 transform hover:text-red-500 hover:scale-110">
+                                                    <div 
+                                                        className="transition duration-300 w-4 mr-2 transform hover:text-red-500 hover:scale-110" 
+                                                        onClick={() => deleteArticle(item.id)} 
+                                                        >
+
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                         </svg>

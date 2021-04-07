@@ -21,6 +21,8 @@
 
 ## Installation
 
+To install the project first download [Docker Desktop](https://www.docker.com/products/docker-desktop).
+
 ### Start
 
 ```bash
@@ -47,7 +49,35 @@ Open your web browser @ <http://localhost:80/>
 
 ## TO-DO
 
-- Create postgres SQL scripts
+### Server
+
+- Footer
+- Header
+- Page: 404
+- Page: Home
+- Page: Post
+- Page: Author
+
+### UI
+
+- Create + Update: Number of character limit
+- Read article
+- Strong Password validation
+- User: sign out
+- User: profile
+- User: update
+
+### Nginx
+
+- DAO Reverse Proxy using subdomain
+- Subdomain for React.js compiled WebApp
+
+### Docs
+
+- Word
+- Screenshots
+- PowerPoint
+- README: installation + usage
 
 ## Contributing
 
