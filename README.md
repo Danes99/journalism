@@ -21,7 +21,8 @@
 
 ## Installation
 
-To install the project first download [Docker Desktop](https://www.docker.com/products/docker-desktop).
+To install the project first download [Docker Desktop](https://www.docker.com/products/docker-desktop). \
+Docker Desktop is an application for MacOS and Windows machines for the building and sharing of containerized applications and micro-services.
 
 ### Start
 
