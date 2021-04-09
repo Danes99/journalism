@@ -107,7 +107,7 @@ const Page = (props) => {
     const canSubmit = isUserNameValid && isUserEmailValid && isUserPasswordValid
 
     return (
-        <WebPage  title="Sign up">
+        <WebPage title="Sign up">
             {/* Input Form */}
             <div className="mt-5 md:mt-0 md:col-span-2">
                 <div className="shadow sm:rounded-md sm:overflow-hidden my-5 mx-20">
@@ -142,9 +142,15 @@ const Page = (props) => {
                         <div className="grid grid-cols-3 gap-6">
                             <div className="col-span-3 sm:col-span-2">
                                 <label htmlFor="email_address" className="block text-sm font-medium text-gray-700">Email address</label>
-                                <input type="email" name="email_address" id="email_address" autoComplete="email" required
+                                <input
                                     className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                    onChange={handleChangeUserEmail} />
+                                    type="email"
+                                    name="email_address"
+                                    id="email_address"
+                                    autoComplete="email"
+                                    required
+                                    onChange={handleChangeUserEmail}
+                                />
                             </div>
                         </div>
 
@@ -152,9 +158,15 @@ const Page = (props) => {
                         <div className="grid grid-cols-3 gap-6">
                             <div className="col-span-3 sm:col-span-2">
                                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-                                <input type="password" name="password" id="password" autoComplete="password" required
+                                <input
                                     className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                    onChange={handleChangeUserPassword} />
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    autoComplete="password"
+                                    required
+                                    onChange={handleChangeUserPassword}
+                                />
                             </div>
                         </div>
 
@@ -178,6 +190,26 @@ const Page = (props) => {
                             Sign up
                         </button>
                     </div>
+
+                    {/* Error Message: if submit data are invalid */}
+                    {/* https://tailwindcomponents.com/component/danger-alert */}
+                    {!canSubmit ? <div className="bg-red-50 p-4 rounded flex items-start text-red-600 mx-4 my-4 shadow-lg max-w-xl mx-auto">
+                        <div className="text-lg">
+                            {/* Error logo */}
+                            <svg xmlns="http://www.w3.org/2000/svg" className="fill-current w-5 pt-1" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.597 17.954l-4.591-4.55-4.555 4.596-1.405-1.405 4.547-4.592-4.593-4.552 1.405-1.405 4.588 4.543 4.545-4.589 1.416 1.403-4.546 4.587 4.592 4.548-1.403 1.416z" />
+                            </svg>
+                        </div>
+                        <div className=" px-3">
+                            <h3 className="text-red-800 font-semibold tracking-wider">Invalid</h3>
+                            <ul className="list-disc list-inside">
+                                { !isUserNameValid ? <li>Invalid name</li> : null }
+                                { !isUserEmailValid ? <li>Invalid email</li> : null }
+                                { !isUserPasswordValid ? <li>Invalid password, must be length 8, 1 number min, 1 special character min</li> : null }
+                            </ul>
+                        </div>
+                    </div>
+                        : null}
 
                 </div>
             </div>

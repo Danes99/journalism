@@ -61,9 +61,6 @@ Open your web browser @ <http://localhost:80/>
 
 ### UI
 
-- Create + Update: Number of character limit
-- Read article
-- Strong Password validation
 - User: sign out
 - User: profile
 - User: update

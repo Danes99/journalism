@@ -15,6 +15,7 @@ import WebPage from './components/WebPage'
 import About from './pages/About'
 import Article from './pages/Article'
 import ArticleCreate from './pages/ArticleCreate'
+import ArticleRead from './pages/ArticleRead'
 import ArticleUpdate from './pages/ArticleUpdate'
 import Help from './pages/Help'
 import Home from './pages/Home'
@@ -28,6 +29,7 @@ import { DAO_ENDPOINT_USER_IS_LOGGED_IN } from './config/dao'
 
 // Function
 let tokenReceived
+// let logOut
 
 function App() {
 
@@ -35,6 +37,7 @@ function App() {
     useEffect(() => {
 
         tokenReceived = () => setIsAuth(true)
+        // logOut = () => setIsAuth(false)
 
     }, [])
 
@@ -93,13 +96,14 @@ function App() {
                             <Route path='/about' exact component={About} />
 
                             {/* When user is authenticated, use callback function (tokenReceived) */}
-                            <Route path='/signIn' exact render={ (props) => <SignIn tokenReceived={tokenReceived} /> } />
-                            <Route path='/signUp' exact render={ (props) => <SignUp tokenReceived={tokenReceived} /> } />
+                            <Route path='/login' exact render={(props) => <SignIn tokenReceived={tokenReceived} />} />
+                            <Route path='/register' exact render={(props) => <SignUp tokenReceived={tokenReceived} />} />
 
                             {/* Private routes, need to be authenticated to access */}
                             <PrivateRoute path='/settings' exact component={Settings} isAuth={isAuth} />
                             <PrivateRoute path='/article' exact component={Article} isAuth={isAuth} />
                             <PrivateRoute path='/article/create' exact component={ArticleCreate} isAuth={isAuth} />
+                            <PrivateRoute path='/article/read' component={ArticleRead} isAuth={isAuth} />
                             <PrivateRoute path='/article/update' component={ArticleUpdate} isAuth={isAuth} />
 
                             {/* 404 */}
@@ -107,8 +111,8 @@ function App() {
 
                         </Switch>
 
-                        : 
-                            <WebPage title='Loading'>
+                        :
+                        <WebPage title='Loading'>
                             {/* Display loading spinner while waiting for the authentication */}
                             <Spinner />
                         </WebPage>

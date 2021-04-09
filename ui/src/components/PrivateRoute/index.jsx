@@ -16,7 +16,7 @@ const PrivateRoute = ({ isAuth, component: Component, ...rest }) => (
         } else {
 
             // Not logged in, so redirect to login page with the return url
-            return <Redirect to={{ pathname: '/signin', state: { from: props.location } }} />
+            return <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
 
         }
 

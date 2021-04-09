@@ -1,0 +1,11 @@
+export const ARTICLE_TITLE_MIN_LENGTH = 0
+export const ARTICLE_TITLE_MAX_LENGTH = 300
+export const ARTICLE_CONTENT_MIN_LENGTH = 0
+export const ARTICLE_CONTENT_MAX_LENGTH = 30000
+
+// export default {
+//     const: ARTICLE_TITLE_MIN_LENGTH = 0,
+// const : ARTICLE_TITLE_MAX_LENGTH = 300,
+// const : ARTICLE_CONTENT_MIN_LENGTH = 0,
+// const : ARTICLE_CONTENT_MAX_LENGTH = 30000
+// }

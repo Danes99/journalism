@@ -112,7 +112,7 @@ const Page = (props) => {
                     <div className="mt-2 text-center text-sm text-gray-600">
                         Or&nbsp;
                         <p className="transition duration-500 font-medium text-indigo-600 hover:text-indigo-500">
-                            <NavLink to='/signUp'>
+                            <NavLink to='/register'>
                                 Sign Up
                             </NavLink>
                         </p>

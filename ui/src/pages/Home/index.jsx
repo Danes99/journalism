@@ -18,12 +18,12 @@ const Page = () => {
 
             {/* Sign In */}
             <div className={CLASS_BUTTON}>
-                <NavLink to='/signIn'>Sign In</NavLink>
+                <NavLink to='/login'>Sign In</NavLink>
             </div>
 
             {/* Sign Up */}
             <div className={CLASS_BUTTON}>
-                <NavLink to='/signUp'>Sign Up</NavLink>
+                <NavLink to='/register'>Sign Up</NavLink>
             </div>
 
         </div>

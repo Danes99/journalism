@@ -83,10 +83,15 @@ const Navbar = (props) => {
                             <div className="flex space-x-4">
                                 {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
 
-
-                                <p className="transition duration-300 bg-gray-900 hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium"><NavLink to='/article'>Dashboard</NavLink></p>
-                                <p className="transition duration-300 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"><NavLink to='/about'>About</NavLink></p>
-                                <p className="transition duration-300 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"><NavLink to='/help'>Help</NavLink></p>
+                                <p className="transition duration-300 bg-gray-900 hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium">
+                                    <NavLink to='/article'>Dashboard</NavLink>
+                                </p>
+                                <p className="transition duration-300 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                                    <NavLink to='/about'>About</NavLink>
+                                </p>
+                                <p className="transition duration-300 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                                    <NavLink to='/help'>Help</NavLink>
+                                </p>
 
                             </div>
                         </div>
