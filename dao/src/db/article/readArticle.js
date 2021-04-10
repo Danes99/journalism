@@ -1,4 +1,4 @@
-readArticle = async id => {
+const readArticle = async id => {
     try {
         const queryString = `SELECT * FROM articles WHERE id=${id}`
         const result = await client.query(queryString)

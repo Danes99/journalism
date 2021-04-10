@@ -1,4 +1,4 @@
-createUser = async (name, email, url, password) => {
+const createUser = async (name, email, url, password) => {
     try {
         const queryString = `INSERT INTO users(name, email, url, password) VALUES (
             '${name}', '${email}', '${url}', '${password}');

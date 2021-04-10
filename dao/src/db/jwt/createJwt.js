@@ -1,4 +1,4 @@
-createJwt = async (user_id, token) => {
+const createJwt = async (user_id, token) => {
     try {
         const queryString = `INSERT INTO jwt(user_id, token, expired_at) VALUES (
             '${user_id}', 

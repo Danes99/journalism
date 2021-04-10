@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom'
 import WebPage from '../../components/WebPage'
 
 // Import Config
-import { DAO_ENDPOINT_USER } from '../../config/dao'
+import { DAO_ENDPOINT_USER_REGISTER } from '../../config/dao'
 
 const Page = (props) => {
 
@@ -66,7 +66,7 @@ const Page = (props) => {
         try {
 
             // Send HTTP POST request: login user
-            const response = await fetch(DAO_ENDPOINT_USER, requestOptions)
+            const response = await fetch(DAO_ENDPOINT_USER_REGISTER, requestOptions)
 
             // setLoginRequestHasBeenReceived(response.status)
 

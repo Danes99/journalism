@@ -1,4 +1,4 @@
-readUserFromUrl = async url => {
+const readUserFromUrl = async url => {
     try {
         const queryString = `SELECT name, description, created_at, updated_at FROM users WHERE url='${url}'`
         const result = await client.query(queryString)

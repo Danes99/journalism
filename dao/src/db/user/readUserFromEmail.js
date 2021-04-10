@@ -1,4 +1,4 @@
-readUserFromEmail = async email => {
+const readUserFromEmail = async email => {
     try {
         const queryString = `SELECT * FROM users WHERE email='${email}'`
         const result = await client.query(queryString)

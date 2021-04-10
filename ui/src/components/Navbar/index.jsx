@@ -4,6 +4,9 @@ import React, { useState } from 'react'
 // Import downloaded modules
 import { NavLink } from 'react-router-dom'
 
+// Import Config
+import { DAO_ENDPOINT_USER_LOGOUT } from '../../config/dao'
+
 // Import image
 import userAvatar from '../../img/photo-1472099645785-5658abf4ff4e.jpeg'
 
@@ -16,6 +19,30 @@ const INITIAL_STATE_IS_USER_MENU_ON = false
 const INITIAL_STATE_IS_MAIN_MENU_ON = false
 
 const Navbar = (props) => {
+
+    const logOut = async () => {
+
+        try {
+
+            // HTTP request options
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': window.localStorage.getItem('jwt')
+                }
+            }
+
+            const response = await fetch(DAO_ENDPOINT_USER_LOGOUT, requestOptions)
+
+            if(response.status === 200) props.logout()
+
+        } catch (error) {
+            console.log(error)
+        }
+
+
+    }
 
     // Create State
     const [isUserMenuOn, setIsUserMenuOn] = useState(INITIAL_STATE_IS_USER_MENU_ON)
@@ -141,7 +168,9 @@ const Navbar = (props) => {
                             {isUserMenuOn ? <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
                                 <p className="transition duration-300 block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</p>
                                 <p className="transition duration-300 block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</p>
-                                <p className="transition duration-300 block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</p>
+
+                                {/* Sign Out */}
+                                <p className="transition duration-300 block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={ (e) => logOut() } >Sign out</p>
                             </div>
                                 : null}
 

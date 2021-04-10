@@ -1,4 +1,4 @@
-readArticle = async (search) => {
+const readArticle = async (search) => {
     try {
         const queryString = `SELECT * FROM articles WHERE 
             content LIKE '%${search}%' OR 

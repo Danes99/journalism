@@ -12,34 +12,29 @@ const generateAuthToken = require('../utils/generateAuthToken')
 
 // Import database functions (CRUD) : user
 const createUser = require('../db/user/createUser')
-// const readUserFromEmailOrName = require('../db/user/readUserFromEmailOrName')
-const readUserFromEmail = require('../db/user/readUserFromEmail')
-const readUserFromUrl = require('../db/user/readUserFromUrl')
-const readUser = require('../db/user/readUser')
-const updateUser = require('../db/user/updateUser')
 const deleteUser = require('../db/user/deleteUser')
+const readUser = require('../db/user/readUser')
+const readUserFromEmail = require('../db/user/readUserFromEmail')
+const readUserFromId = require('../db/user/readUserFromId')
+const readUserFromUrl = require('../db/user/readUserFromUrl')
+const updateUser = require('../db/user/updateUser')
 
 // Import database functions (CRUD) : jwt
 const createJwt = require('../db/jwt/createJwt')
+const deleteJwt = require('../db/jwt/deleteJwt')
+const deleteJwtSFromUserId = require('../db/jwt/deleteJwtSFromUserId')
 
 // Create Express.js router
 const router = new express.Router()
 
-// Test if user is logged in
-// Test the validity of the JWT in header
-router.get(
-    '/isLoggedIn',
-    auth,
-    async (req, res) => res.sendStatus(200)
-)
-
 // User read
 router.get(
-    '/id/:id',
+    '/',
+    auth,
     async (req, res) => {
 
         // SQL Query result
-        const result = await readUser(req.params.id)
+        const result = await readUser(req.user_id)
 
         // Test result
         if (!result.success) return res.sendStatus(500)
@@ -49,7 +44,35 @@ router.get(
     }
 )
 
-// User read
+// Test if user is logged in
+// Test the validity of the JWT in header
+router.get(
+    '/isLoggedIn',
+    auth,
+    async (req, res) => res.sendStatus(200)
+)
+
+// User read form id
+// Used by external users
+// Send none confidential information
+router.get(
+    '/id/:id',
+    async (req, res) => {
+
+        // SQL Query result
+        const result = await readUserFromId(req.params.id)
+
+        // Test result
+        if (!result.success) return res.sendStatus(500)
+        if (!result.data) return res.sendStatus(404)
+
+        return res.json(result.data)
+    }
+)
+
+// User read form url
+// Used by external users
+// Send none confidential information
 router.get(
     '/url/:url',
     async (req, res) => {
@@ -64,15 +87,6 @@ router.get(
         return res.json(result.data)
     }
 )
-
-// User read avatar
-// router.get(
-//     '/:id/avatar',
-//     isIdValid,
-//     async (req, res) => {
-//         res.sendStatus(200)
-//     }
-// )
 
 // User create
 router.post(
@@ -146,7 +160,15 @@ router.post(
     '/logout',
     auth,
     async (req, res) => {
-        res.send(200)
+
+        // Token to delete from database
+        const token = req.header('Authorization').replace('Bearer ', '')
+
+        // Delete token from database
+        const result = await deleteJwt(token)
+
+        // Send result
+        return res.sendStatus(result.success ? 200 : 500)
     }
 )
 
@@ -155,7 +177,12 @@ router.post(
     '/logout/all',
     auth,
     async (req, res) => {
-        res.send(200)
+
+        // Delete every user's tokens from database 
+        const result = await deleteJwtSFromUserId(req.user_id)
+
+        // Send result
+        return res.sendStatus(result.success ? 200 : 500)
     }
 )
 

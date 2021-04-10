@@ -1,4 +1,4 @@
-deleteJwtExpired = async () => {
+const deleteJwtExpired = async () => {
     try {
         const queryString = `DELETE from jwt WHERE expired_at < NOW() AT TIME ZONE '${TIMEZONE}';`
         const result = await client.query(queryString)

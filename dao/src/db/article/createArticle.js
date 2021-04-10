@@ -1,4 +1,4 @@
-createArticle = async (user_id, title, content) => {
+const createArticle = async (user_id, title, content) => {
     try {
         const queryString = `INSERT INTO articles(user_id, title, content) VALUES (
             ${user_id}, '${title}', '${content}');`

@@ -29,7 +29,7 @@ import { DAO_ENDPOINT_USER_IS_LOGGED_IN } from './config/dao'
 
 // Function
 let tokenReceived
-// let logOut
+let logOut
 
 function App() {
 
@@ -37,7 +37,7 @@ function App() {
     useEffect(() => {
 
         tokenReceived = () => setIsAuth(true)
-        // logOut = () => setIsAuth(false)
+        logOut = () => setIsAuth(false)
 
     }, [])
 
@@ -83,7 +83,10 @@ function App() {
                 <div className="flex-grow">
 
                     {/* Navbar */}
-                    <NavBar displayUserMenu={isAuth} />
+                    <NavBar 
+                        displayUserMenu={isAuth} 
+                        logout={logOut}
+                    />
 
                     {authRequestHasBeenMade ?
 

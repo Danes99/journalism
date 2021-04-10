@@ -1,4 +1,4 @@
-readJwtFromToken = async token => {
+const readJwtFromToken = async token => {
     try {
         const queryString = `SELECT * FROM jwt WHERE token='${token}'`
         const result = await client.query(queryString)

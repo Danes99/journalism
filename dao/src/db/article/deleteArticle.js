@@ -1,4 +1,4 @@
-deleteArticle = async (id) => {
+const deleteArticle = async (id) => {
     try {
         const queryString = `DELETE FROM articles WHERE id=${id}`
         const result = await client.query(queryString)

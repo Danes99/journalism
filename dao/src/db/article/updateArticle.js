@@ -1,4 +1,4 @@
-updateArticle = async (id, title, content) => {
+const updateArticle = async (id, title, content) => {
     try {
         const queryString = `UPDATE articles SET 
             ${ title ? `title='${title}'` : '' } ${ title && content ? ',' : '' }

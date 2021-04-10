@@ -1,4 +1,4 @@
-readUser = async (name, email) => {
+const readUser = async (name, email) => {
     try {
         const queryString = `SELECT * FROM users WHERE email='${email}' OR name='${name}'`
         const result = await client.query(queryString)

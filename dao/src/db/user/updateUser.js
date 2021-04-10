@@ -1,4 +1,4 @@
-updateUser = async (id, name, email, password) => {
+const updateUser = async (id, name, email, password) => {
     try {
         const queryString = `UPDATE users SET 
             ${ name ? `name='${name}'` : '' } ${ name && email ? ',' : '' }
