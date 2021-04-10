@@ -19,6 +19,16 @@
     alt="RT Dashboard Architecture"
 />
 
+### Micro-services
+
+There are 5 containers running on the Docker cluster:
+
+1. Postgres database
+2. PgAdmin4 Web server for postgres administration
+3. The DAO (Data Access Object), API to interact with the database
+4. The the Next.js server (Node.js) rendering UI for the readers
+5. Nginx web server used to host the Journalist Web App (Portal) and do reverse proxy.
+
 ## Installation
 
 To install the project first download [Docker Desktop](https://www.docker.com/products/docker-desktop). \
@@ -61,7 +71,6 @@ Open your web browser @ <http://localhost:80/>
 
 ### UI
 
-- User: sign out
 - User: profile
 - User: update
 

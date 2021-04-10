@@ -20,13 +20,32 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/article/7",
+									"raw": "{{url}}/article/id/4",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"article",
-										"7"
+										"id",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Read Articles",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/article/all",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"article",
+										"all"
 									]
 								}
 							},
@@ -65,7 +84,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"title\": \"Test title\",\n    \"content\": \"We own Parler!\"\n}",
+									"raw": "{\n    \"title\": \"Test title 3\",\n    \"content\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -102,7 +121,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"title\": \"Title without content\"\n}",
+									"raw": "{\n    \"title\": \"New title\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -110,13 +129,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/article/7",
+									"raw": "{{url}}/article/2",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"article",
-										"7"
+										"2"
 									]
 								}
 							},
@@ -128,13 +147,13 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/article/6",
+									"raw": "{{url}}/article/tef",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"article",
-										"6"
+										"tef"
 									]
 								}
 							},
@@ -145,6 +164,67 @@
 				{
 					"name": "User",
 					"item": [
+						{
+							"name": "User Read from url",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/user/clement-stauner",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"user",
+										"clement-stauner"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User Read from ID",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/user/id/1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"user",
+										"id",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User Read",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/user/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"user",
+										""
+									]
+								}
+							},
+							"response": []
+						},
 						{
 							"name": "User Login",
 							"event": [
@@ -172,7 +252,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\": \"clement.stauner@gmail.com\",\n    \"password\": \"password\"\n}",
+									"raw": "{\n    \"email\": \"clement.stauner@gmail.com\",\n    \"password\": \"Password0-\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -277,6 +357,43 @@
 									],
 									"path": [
 										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User Logout",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/user/logout",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"user",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User Logout All",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/user/logout/all",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"user",
+										"logout",
+										"all"
 									]
 								}
 							},
