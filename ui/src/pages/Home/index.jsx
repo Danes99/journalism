@@ -8,13 +8,13 @@ import { NavLink } from 'react-router-dom'
 import WebPage from '../../components/WebPage'
 
 // Constants
-const CLASS_BUTTON = "transition duration-500 inline-flex justify-center my-4 py-3 w-36 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+const CLASS_BUTTON = 'transition duration-500 inline-flex justify-center my-4 py-3 w-36 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
 
 const Page = () => {
 
-    return <WebPage title="Home">
+    return <WebPage title='Home'>
 
-        <div className="flex flex-col items-center py-3">
+        <div className='flex flex-col items-center py-3'>
 
             {/* Sign In */}
             <div className={CLASS_BUTTON}>

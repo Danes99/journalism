@@ -109,14 +109,15 @@ router.post(
             const result = await createArticle(
                 req.user_id,
                 req.body.title,
-                req.body.content
+                req.body.content,
+                req.body.is_completed
             )
 
             // SQL Query result
             if (result.success) {
                 return res.sendStatus(201)
             } else {
-                return res.status(500).json(result)
+                return res.status(500).send(result.data)
             }
 
         } catch (error) {
@@ -139,11 +140,16 @@ router.patch(
             const result = await updateArticle(
                 req.params.id,
                 req.body.title,
-                req.body.content
+                req.body.content,
+                req.body.is_completed
             )
 
             // SQL Query result
-            res.status(result.success ? 200 : 500).json(result.result)
+            if (result.success) {
+                res.sendStatus(200)
+            } else {
+                res.status(500).json(result.data)
+            }
 
         } catch (error) {
             console.log(error)

@@ -6,7 +6,7 @@ CREATE TABLE articles (
     user_id INT NOT NULL,
     title VARCHAR(300) NOT NULL,
     content VARCHAR(30000) NOT NULL,
-    isCompleted boolean NOT NULL DEFAULT false,
+    is_completed boolean NOT NULL DEFAULT false,
     created_at timestamp with time zone NOT NULL DEFAULT ( NOW() AT TIME ZONE 'UTC' ),
     updated_at timestamp with time zone NOT NULL DEFAULT ( NOW() AT TIME ZONE 'UTC' )
 );

@@ -37,7 +37,10 @@ function App() {
     useEffect(() => {
 
         tokenReceived = () => setIsAuth(true)
-        logOut = () => setIsAuth(false)
+        logOut = () => {
+            setIsAuth(false)
+            localStorage.removeItem('jwt')
+        }
 
     }, [])
 
@@ -78,9 +81,9 @@ function App() {
     )
 
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className='flex flex-col min-h-screen'>
             <Router>
-                <div className="flex-grow">
+                <div className='flex-grow'>
 
                     {/* Navbar */}
                     <NavBar 

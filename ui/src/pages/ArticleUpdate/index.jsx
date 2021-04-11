@@ -20,8 +20,9 @@ import {
 } from '../../config/article'
 
 // Initial state
-const INITIAL_STATE_ARTICLE_TITLE = ""
-const INITIAL_STATE_ARTICLE_CONTENT = ""
+const INITIAL_STATE_ARTICLE_TITLE = ''
+const INITIAL_STATE_ARTICLE_CONTENT = ''
+const INITIAL_STATE_ARTICLE_IS_COMPLETED = null
 const INITIAL_STATE_IS_ARTICLE_TITLE_VALID = false
 const INITIAL_STATE_IS_ARTICLE_CONTENT_VALID = false
 
@@ -83,6 +84,7 @@ const Page = () => {
                 // Update state
                 setArticleTitle(body.title)
                 setArticleContent(body.content)
+                setArticleIsCompleted(body.is_completed)
                 setFetchRequestResponse(body)
 
                 setIsArticleTitleValid(true)
@@ -121,6 +123,8 @@ const Page = () => {
     // State: article
     const [articleTitle, setArticleTitle] = useState(INITIAL_STATE_ARTICLE_TITLE)
     const [articleContent, setArticleContent] = useState(INITIAL_STATE_ARTICLE_CONTENT)
+    const [articleIsCompleted, setArticleIsCompleted] = useState(INITIAL_STATE_ARTICLE_IS_COMPLETED)
+
     const [isArticleTitleValid, setIsArticleTitleValid] = useState(INITIAL_STATE_IS_ARTICLE_TITLE_VALID)
     const [isArticleContentValid, setIsArticleContentValid] = useState(INITIAL_STATE_IS_ARTICLE_CONTENT_VALID)
 
@@ -160,6 +164,13 @@ const Page = () => {
         )
     }
 
+    // Handle update of: article 'is completed?'
+    const handleChangeArticleIsCompleted = (e) => {
+        
+        // console.log(e.currentTarget.value)
+        setArticleIsCompleted(e.currentTarget.value)
+    }
+
     // Handle submit article
     const handleSubmit = async () => {
 
@@ -177,7 +188,8 @@ const Page = () => {
             body: JSON.stringify(
                 {
                     title: articleTitle,
-                    content: articleContent
+                    content: articleContent,
+                    is_completed: articleIsCompleted
                 },
                 null,
                 4
@@ -214,10 +226,10 @@ const Page = () => {
     }, [])
 
     return (
-        <WebPage title="Update Post">
+        <WebPage title='Update Post'>
 
             {hasRequestBeenMade ?
-                <div className="py-10">
+                <div className='py-10'>
                     {
                         requestResponse ?
                             afterRequestDisplay(requestResponse)
@@ -229,11 +241,19 @@ const Page = () => {
                 hasFetchRequestBeenMade ?
                     fetchRequestResponse ?
                         <ArticleForm
+
+                            // Article data
                             articleTitle={articleTitle}
                             articleContent={articleContent}
+                            articleIsCompleted={articleIsCompleted}
+
+                            // Handle changes
                             handleChangeArticleTitle={handleChangeArticleTitle}
                             handleChangeArticleContent={handleChangeArticleContent}
+                            handleChangeArticleIsCompleted={handleChangeArticleIsCompleted}
                             handleSubmit={handleSubmit}
+
+                            // Can submit updates?
                             canSubmit={canSubmit}
                         />
                         :

@@ -17,8 +17,9 @@ import {
 } from '../../config/article'
 
 // Initial state
-const INITIAL_STATE_ARTICLE_TITLE = ""
-const INITIAL_STATE_ARTICLE_CONTENT = ""
+const INITIAL_STATE_ARTICLE_TITLE = ''
+const INITIAL_STATE_ARTICLE_CONTENT = ''
+const INITIAL_STATE_ARTICLE_IS_COMPLETED = false
 const INITIAL_STATE_IS_ARTICLE_TITLE_VALID = false
 const INITIAL_STATE_IS_ARTICLE_CONTENT_VALID = false
 const INITIAL_STATE_HAS_REQUEST_BEEN_MADE = false
@@ -51,8 +52,11 @@ const Page = () => {
     // State
     const [articleTitle, setArticleTitle] = useState(INITIAL_STATE_ARTICLE_TITLE)
     const [articleContent, setArticleContent] = useState(INITIAL_STATE_ARTICLE_CONTENT)
+    const [articleIsCompleted, setArticleIsCompleted] = useState(INITIAL_STATE_ARTICLE_IS_COMPLETED)
+
     const [isArticleTitleValid, setIsArticleTitleValid] = useState(INITIAL_STATE_IS_ARTICLE_TITLE_VALID)
     const [isArticleContentValid, setIsArticleContentValid] = useState(INITIAL_STATE_IS_ARTICLE_CONTENT_VALID)
+    
     const [hasRequestBeenMade, setHasRequestBeenMade] = useState(INITIAL_STATE_HAS_REQUEST_BEEN_MADE)
     const [requestResponse, setRequestResponse] = useState(INITIAL_STATE_REQUEST_RESPONSE)
 
@@ -82,6 +86,12 @@ const Page = () => {
         )
     }
 
+    // Handle update of: article 'is completed?'
+    const handleChangeArticleIsCompleted = (e) => {
+        
+        setArticleIsCompleted(e.currentTarget.value)
+    }
+
     // Handle submit article
     const handleSubmit = async () => {
 
@@ -95,7 +105,8 @@ const Page = () => {
             body: JSON.stringify(
                 {
                     title: articleTitle,
-                    content: articleContent
+                    content: articleContent,
+                    is_completed: articleIsCompleted
                 },
                 null,
                 4
@@ -125,10 +136,10 @@ const Page = () => {
     const canSubmit = isArticleTitleValid && isArticleContentValid
 
     return (
-        <WebPage title="New Post">
+        <WebPage title='New Post'>
 
             {hasRequestBeenMade ?
-                <div className="py-10">
+                <div className='py-10'>
                     {
                         requestResponse ?
                             afterRequestDisplay(requestResponse)
@@ -141,6 +152,7 @@ const Page = () => {
                 <ArticleForm
                     handleChangeArticleTitle={handleChangeArticleTitle}
                     handleChangeArticleContent={handleChangeArticleContent}
+                    handleChangeArticleIsCompleted={handleChangeArticleIsCompleted}
                     handleSubmit={handleSubmit}
                     canSubmit={canSubmit}
                 />

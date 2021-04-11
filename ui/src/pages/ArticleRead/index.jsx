@@ -15,8 +15,8 @@ import {
 } from '../../config/dao'
 
 // Initial state
-const INITIAL_STATE_ARTICLE_TITLE = ""
-const INITIAL_STATE_ARTICLE_CONTENT = ""
+const INITIAL_STATE_ARTICLE_TITLE = ''
+const INITIAL_STATE_ARTICLE_CONTENT = ''
 const INITIAL_STATE_HAS_FETCH_REQUEST_BEEN_MADE = false
 const INITIAL_STATE_FETCH_REQUEST_RESPONSE = null
 
@@ -99,7 +99,7 @@ const Page = () => {
     }, [])
 
     return (
-        <WebPage title="Read Post">
+        <WebPage title='Read Post'>
             {
                 hasFetchRequestBeenMade ?
                     fetchRequestResponse ?
