@@ -131,7 +131,7 @@ router.post(
         // Get user from email
         const result = await readUserFromEmail(req.body.email)
         if (!result.success) return res.status(500).send(result.result)
-        if (!result.result) return res.status(400).json({ error: "Bad credentials" })
+        if (!result.result) return res.status(400).json({ error: 'Bad credentials' })
 
         // Compare stored hashed password and login password
         const isMatch = await bcrypt.compare(
@@ -140,7 +140,7 @@ router.post(
         )
 
         // Does password match? 
-        if (!isMatch) return res.status(400).json({ error: "Bad credentials" })
+        if (!isMatch) return res.status(400).json({ error: 'Bad credentials' })
 
         // JSON Web Token (JWT)
         const token = await generateAuthToken(req.body.email)

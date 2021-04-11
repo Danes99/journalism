@@ -1,19 +1,47 @@
-// DAO options
-const DAO_PORT = process.env.DAO_PORT || 81
-const DAO_PROTOCOL = process.env.DAO_PROTOCOL || 'http'
+// Data Access Object (DAO) options
+const DAO_PORT = 81
+const DAO_PROTOCOL = 'http:'
+const DAO_BASE_URL = process.env.DAO_BASE_URL || 'localhost'
 
-// DAO base url
-const DAO_BASE_URL = `${DAO_PROTOCOL}://${process.env.DAO_BASE_URL || 'localhost'}:${DAO_PORT}/`
+// DAO url
+const DAO_URL = `${DAO_PROTOCOL}//${DAO_BASE_URL}:${DAO_PORT}/`
 
-// DAO endpoint
-const DAO_ENDPOINT_ARTICLE = DAO_BASE_URL + 'article/'
-const DAO_ENDPOINT_USER = DAO_BASE_URL + 'user/'
+// DAO endpoints
+const DAO_ENDPOINT_USER = DAO_URL + 'user/'
+const DAO_ENDPOINT_ARTICLE = DAO_URL + 'article/'
+
+// DAO endpoints: user
+const DAO_ENDPOINT_USER_LOGIN = DAO_ENDPOINT_USER + 'login/'
+const DAO_ENDPOINT_USER_LOGOUT = DAO_ENDPOINT_USER + 'logout/'
+const DAO_ENDPOINT_USER_REGISTER = DAO_ENDPOINT_USER
+const DAO_ENDPOINT_USER_IS_LOGGED_IN = DAO_ENDPOINT_USER + 'isLoggedIn/'
+
+// DAO endpoints: article
+const DAO_ENDPOINT_ARTICLE_ID = DAO_ENDPOINT_ARTICLE + 'id/'
+const DAO_ENDPOINT_ARTICLE_READ_ALL = DAO_ENDPOINT_ARTICLE + 'all/'
 
 // Exports
 export {
-    DAO_PROTOCOL,
+
+    // Options
     DAO_PORT,
+    DAO_PROTOCOL,
     DAO_BASE_URL,
+
+    // URI
+    DAO_URL,
+
+    // Main endpoint
+    DAO_ENDPOINT_USER,
     DAO_ENDPOINT_ARTICLE,
-    DAO_ENDPOINT_USER
+
+    // User endpoints
+    DAO_ENDPOINT_USER_LOGIN,
+    DAO_ENDPOINT_USER_LOGOUT,
+    DAO_ENDPOINT_USER_REGISTER,
+    DAO_ENDPOINT_USER_IS_LOGGED_IN,
+
+    // Article endpoints
+    DAO_ENDPOINT_ARTICLE_ID,
+    DAO_ENDPOINT_ARTICLE_READ_ALL
 }

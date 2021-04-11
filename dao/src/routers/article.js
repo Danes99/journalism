@@ -10,6 +10,7 @@ const isArticleValid = require('../middleware/article/isArticleValid')
 const createArticle = require('../db/article/createArticle')
 const readArticle = require('../db/article/readArticle')
 const readArticleAll = require('../db/article/readArticleAll')
+const readArticleLasts = require('../db/article/readArticleLasts')
 const readArticleSearch = require('../db/article/readArticleSearch')
 const updateArticle = require('../db/article/updateArticle')
 const deleteArticle = require('../db/article/deleteArticle')
@@ -27,7 +28,7 @@ router.get(
 
             // Test id
             if (!req.params.id) return res.status(400).send('ID not defined')
-            if (typeof parseInt(req.params.id) !== 'number') return res.status(400).send('ID is n ot a number')
+            if (typeof parseInt(req.params.id) !== 'number') return res.status(400).send('ID is not a number')
 
             // SQL Query result
             const result = await readArticle(req.params.id)
@@ -75,19 +76,45 @@ router.get(
     }
 )
 
-// Search article by string in "title" or "content"
+// Search article by string in 'title' or 'content'
 // No need to be authenticated
 router.get(
-    '/',
+    '/search',
     async (req, res) => {
         try {
 
-            // Test search query
-            if (!req.query.search) return res.status(400).json({ error: "No search query" })
+            // Test search query 'q'
+            if (!req.query.q) return res.status(400).json({ error: 'No search query' })
 
             // SQL Query result
-            const result = await readArticleSearch(req.query.search)
-            res.status(result.success ? 200 : 500).send(result.result)
+            const result = await readArticleSearch(req.query.q)
+            res.status(result.success ? 200 : 500).send(result.data)
+
+        } catch (error) {
+            console.log(error)
+            res.status(500).send(error)
+        }
+    }
+)
+
+// Search article by string in 'title' or 'content'
+// No need to be authenticated
+router.get(
+    '/last',
+    async (req, res) => {
+        try {
+
+            const q = req.query.q 
+
+            // Test search query 'q'
+            if (!q) return res.status(400).json({ error: 'No search query' })
+            if (isNaN(q)) return res.status(400).json({ error: 'q is not a number' })
+            if (q < 1) return res.status(400).json({ error: 'q must be > 0' })
+            if (q > 17) return res.status(400).json({ error: 'q must be <= 17' })
+
+            // SQL Query result
+            const result = await readArticleLasts(q)
+            res.status(result.success ? 200 : 500).send(result.data)
 
         } catch (error) {
             console.log(error)

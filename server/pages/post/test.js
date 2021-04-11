@@ -96,11 +96,11 @@ export default function Post({ article, user }) {
             <article>
 
                 {/* Article Title */}
-                <div className={styles.articleTitle}>{article.title}</div>
+                <div classNameName={styles.articleTitle}>{article.title}</div>
 
                 {/* Article Author */}
                 {user && (
-                    <div className={styles.articleAuthor}>
+                    <div classNameName={styles.articleAuthor}>
                         by&nbsp;
                         <Link href={`/author/${user.url}`}>
                             <a>{user.name}</a>
@@ -110,7 +110,7 @@ export default function Post({ article, user }) {
 
                 {/* Article Updated At */}
                 {article.updated_at && (
-                    <div className={styles.articleUpdatedAt}>
+                    <div classNameName={styles.articleUpdatedAt}>
                         Updated <DateFormat dateString={article.updated_at} />
                     </div>
                 )}
@@ -118,7 +118,7 @@ export default function Post({ article, user }) {
                 {/* <h2>Content</h2> */}
 
                 {/* Article content */}
-                <div className={styles.articleContent}>
+                <div classNameName={styles.articleContent}>
                     {article.content}
                 </div>
 

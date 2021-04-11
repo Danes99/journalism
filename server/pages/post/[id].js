@@ -61,8 +61,6 @@ export async function getServerSideProps({ params }) {
         user = null
     }
 
-    console.log(user)
-
     // Return results
     return { props: { article, user } }
 }

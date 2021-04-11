@@ -4,6 +4,9 @@ node_modules/
 # Tests directories
 tests/
 
+# Next
+.next/
+
 # Documents
 README.md
 

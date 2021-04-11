@@ -17,6 +17,7 @@ import {
 // Initial state
 const INITIAL_STATE_ARTICLE_TITLE = ''
 const INITIAL_STATE_ARTICLE_CONTENT = ''
+const INITIAL_STATE_ARTICLE_IS_COMPLETED = null
 const INITIAL_STATE_HAS_FETCH_REQUEST_BEEN_MADE = false
 const INITIAL_STATE_FETCH_REQUEST_RESPONSE = null
 
@@ -51,6 +52,7 @@ const Page = () => {
                 // Update state
                 setArticleTitle(body.title)
                 setArticleContent(body.content)
+                setArticleIsCompleted(body.is_completed)
                 setFetchRequestResponse(body)
             }
 
@@ -86,6 +88,7 @@ const Page = () => {
     // State: article
     const [articleTitle, setArticleTitle] = useState(INITIAL_STATE_ARTICLE_TITLE)
     const [articleContent, setArticleContent] = useState(INITIAL_STATE_ARTICLE_CONTENT)
+    const [articleIsCompleted, setArticleIsCompleted] = useState(INITIAL_STATE_ARTICLE_IS_COMPLETED)
 
     // State: HTTP requests
     const [hasFetchRequestBeenMade, setHasFetchRequestBeenMade] = useState(INITIAL_STATE_HAS_FETCH_REQUEST_BEEN_MADE)
@@ -104,8 +107,12 @@ const Page = () => {
                 hasFetchRequestBeenMade ?
                     fetchRequestResponse ?
                         <ArticleForm
+
+                            // Article data
                             articleTitle={articleTitle}
                             articleContent={articleContent}
+                            articleIsCompleted={articleIsCompleted}
+
                             isReadOnly={true}
                             handleSubmit={goRouteUpdateArticle}
                         />

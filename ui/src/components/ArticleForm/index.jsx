@@ -132,10 +132,13 @@ const ArticleForm = (props) => {
                     >Back</NavLink>
 
                     {/* Is article completed & ready to publish? */}
-                    {/* <select className='border border-gray-300 p-1 px-8 font-semibold cursor-pointer text-gray-500 ml-2 hover:border-gray-400'>
-                        <option value={true}>Save & Publish</option>
-                        <option value={false}>Save Draft</option>
-                    </select> */}
+                    <select className='border border-gray-300 p-1 px-8 font-semibold cursor-pointer text-gray-500 ml-2 hover:border-gray-400' 
+                        value={props.articleIsCompleted}
+                        disabled
+                    >
+                        <option value={true}>Saved & Published</option>
+                        <option value={false}>Saved as Draft</option>
+                    </select>
 
                     {/* Post button */}
                     <button

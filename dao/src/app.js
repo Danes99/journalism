@@ -1,7 +1,7 @@
 // Import downloaded modules
 const cors = require('cors')
 const express = require('express')
-const bodyParser = require("body-parser")
+const bodyParser = require('body-parser')
 
 // Import routers
 const routerUser = require('./routers/user')

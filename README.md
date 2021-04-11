@@ -62,8 +62,6 @@ Open your web browser @ <http://localhost:80/>
 
 ### Server
 
-- Footer
-- Header
 - Page: 404
 - Page: Home
 - Page: Post
@@ -94,7 +92,7 @@ Please make sure to update tests as appropriate.
 
 ## Authors and acknowledgment
 
-Made by Clément Stauner & Mathis Truchet, 2020.
+Made by Clément Stauner, 2020.
 
 ## License
 

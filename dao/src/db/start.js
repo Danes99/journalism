@@ -17,7 +17,7 @@ const startConnection = async (clientData) => {
         global.client = new Client(clientData)
         const result = await client.connect()
 
-        console.log("Connected successfully to database PostgreSQL")
+        console.log('Connected successfully to database PostgreSQL')
         return { success: true, result, client }
     }
     catch (error) {
