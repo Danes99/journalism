@@ -63,7 +63,6 @@ Open your web browser @ <http://localhost:80/>
 ### Server
 
 - Page: 404
-- Page: Home
 - Page: Post
 - Page: Author
 
@@ -80,8 +79,6 @@ Open your web browser @ <http://localhost:80/>
 ### Docs
 
 - Word
-- Screenshots
-- PowerPoint
 - README: installation + usage
 
 ## Contributing
