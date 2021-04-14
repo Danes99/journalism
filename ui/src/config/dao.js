@@ -31,7 +31,7 @@ export {
     // URI
     DAO_URL,
 
-    // Main endpoint
+    // Main endpoints
     DAO_ENDPOINT_USER,
     DAO_ENDPOINT_ARTICLE,
 
