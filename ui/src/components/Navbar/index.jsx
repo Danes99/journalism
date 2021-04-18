@@ -166,11 +166,18 @@ const Navbar = (props) => {
                             --> */}
 
                             {isUserMenuOn ? <div className='origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none' role='menu' aria-orientation='vertical' aria-labelledby='user-menu'>
-                                <p className='transition duration-300 block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' role='menuitem'>Your Profile</p>
-                                <p className='transition duration-300 block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' role='menuitem'>Settings</p>
+                                
+                                {/* User Profile */}
+                                <NavLink to='/profile'>
+                                    <p className='transition duration-300 block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' role='menuitem'>Your Profile</p>
+                                </NavLink>
+
+                                {/* User settings */}
+                                {/* <p className='transition duration-300 block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' role='menuitem'>Settings</p> */}
 
                                 {/* Sign Out */}
                                 <p className='transition duration-300 block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' role='menuitem' onClick={ (e) => logOut() } >Sign out</p>
+                                
                             </div>
                                 : null}
 

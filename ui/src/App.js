@@ -19,10 +19,11 @@ import ArticleRead from './pages/ArticleRead'
 import ArticleUpdate from './pages/ArticleUpdate'
 import Help from './pages/Help'
 import Home from './pages/Home'
+import NotFound404 from './pages/404'
 import Settings from './pages/Settings'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SingUp'
-import NotFound404 from './pages/404'
+import UserProfile from './pages/UserProfile'
 
 // Import config
 import { DAO_ENDPOINT_USER_IS_LOGGED_IN } from './config/dao'
@@ -106,6 +107,7 @@ function App() {
                             <Route path='/register' exact render={(props) => <SignUp tokenReceived={tokenReceived} />} />
 
                             {/* Private routes, need to be authenticated to access */}
+                            <PrivateRoute path='/profile' component={UserProfile} isAuth={isAuth} />
                             <PrivateRoute path='/settings' exact component={Settings} isAuth={isAuth} />
                             <PrivateRoute path='/article' exact component={Article} isAuth={isAuth} />
                             <PrivateRoute path='/article/create' exact component={ArticleCreate} isAuth={isAuth} />
