@@ -1,7 +1,7 @@
 # Prepare nginx
 FROM nginx:1.16.0-alpine
 
-# Copu compiled React.js Web App
+# Copy compiled React.js Web App
 COPY ./build/ /usr/share/nginx/html
 
 # Remove default Nginx config file
