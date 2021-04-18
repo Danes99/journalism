@@ -183,7 +183,6 @@ Open your web browser @ <http://localhost:80/>
 
 ### React.js UI
 
-- User: profile
 - User: update
 
 ### Nginx Web server
